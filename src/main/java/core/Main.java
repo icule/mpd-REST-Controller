@@ -12,7 +12,7 @@ import java.net.URI;
  *
  */
 public class Main {
-    public static final String BASE_URI = "http://localhost:8080/myapp/";
+    public static final String BASE_URI = "http://localhost:8080/";
 
 
     public static HttpServer startServer() {
@@ -25,7 +25,7 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         final HttpServer server = startServer();
         System.in.read();
         server.shutdown();

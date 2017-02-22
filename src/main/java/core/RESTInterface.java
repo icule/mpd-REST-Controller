@@ -1,25 +1,66 @@
 package core;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 /**
  * Root resource (exposed at "player" path)
  */
 @Path("player")
 public class RESTInterface {
+    private String getAuthToken(){
+        return "test"; //TODO remove before put it in production
+    }
 
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
+
+    @Path("{authToken}/music")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got it!";
+    public String getMusic(@PathParam("authToken") String token) throws IOException, InterruptedException {
+        if(token.equals(getAuthToken())){
+            return Executor.executeCommand("mpc current");
+        }
+        throw new ForbiddenException("Bad token");
+    }
+
+    @Path("{authToken}/next")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putNext(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+        if(token.equals(getAuthToken())){
+            return Executor.executeCommand("mpc next");
+        }
+        throw new ForbiddenException("Bad token");
+    }
+
+    @Path("{authToken}/play")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putPlay(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+        if(token.equals(getAuthToken())){
+            return Executor.executeCommand("mpc play");
+        }
+        throw new ForbiddenException("Bad token");
+    }
+
+    @Path("{authToken}/pause")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putPause(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+        if(token.equals(getAuthToken())){
+            return Executor.executeCommand("mpc pause");
+        }
+        throw new ForbiddenException("Bad token");
+    }
+
+    @Path("{authToken}/stop")
+    @PUT
+    @Produces(MediaType.TEXT_PLAIN)
+    public String putStop(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+        if(token.equals(getAuthToken())){
+            return Executor.executeCommand("mpc stop");
+        }
+        throw new ForbiddenException("Bad token");
     }
 }
