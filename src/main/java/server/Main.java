@@ -12,11 +12,11 @@ import java.net.URI;
  *
  */
 public class Main {
-    public static final String BASE_URI = "http://localhost:8080/";
+    public static final String BASE_URI = "http://localhost:6061/";
 
 
     public static HttpServer startServer() {
-        final ResourceConfig rc = new ResourceConfig().packages("core");
+        final ResourceConfig rc = new ResourceConfig().packages("server");
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 

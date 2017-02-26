@@ -19,7 +19,7 @@ public class RESTInterface {
     @Produces(MediaType.TEXT_PLAIN)
     public String getMusic(@PathParam("authToken") String token) throws IOException, InterruptedException {
         if(token.equals(getAuthToken())){
-            return Executor.executeCommand("mpc current");
+            return Executor.executeCommand("mpc");
         }
         throw new ForbiddenException("Bad token");
     }
