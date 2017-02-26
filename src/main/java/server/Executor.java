@@ -1,10 +1,8 @@
-package core;
+package server;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 /**
  * Created by icule on 22/02/17.
