@@ -1,5 +1,7 @@
 package client;
 
+import common.ConfigurationManager;
+
 import javax.swing.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -8,6 +10,7 @@ import javax.ws.rs.client.WebTarget;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * Created by icule on 26/02/17.
@@ -21,9 +24,9 @@ public class Main {
         textArea.setText(res);
     }
 
-    public Main(String url){
+    public Main(ConfigurationManager configurationManager){
         Client c = ClientBuilder.newClient();
-        target = c.target(url);
+        target = c.target("http://" + configurationManager.getCompleteUrl() + "/player/" + configurationManager.getAuthToken());
 
 
         JFrame frame = new JFrame("Mpd controller");
@@ -44,7 +47,7 @@ public class Main {
             }
         });
         north.add(info);
-        
+
         JButton next = new JButton("Next");
         next.addActionListener(new ActionListener() {
             @Override
@@ -93,8 +96,9 @@ public class Main {
     }
 
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws IOException {
         String authToken = "test";
-        Main m = new Main("http://127.0.0.1:6061/player/" + authToken + "/");
+        ConfigurationManager configurationManager = new ConfigurationManager("config.properties");
+        Main m = new Main(configurationManager);
     }
 }

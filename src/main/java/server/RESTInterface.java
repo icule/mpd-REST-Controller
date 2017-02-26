@@ -1,6 +1,10 @@
 package server;
 
+import common.ConfigurationManager;
+
+import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
@@ -9,8 +13,11 @@ import java.io.IOException;
  */
 @Path("player")
 public class RESTInterface {
+    @Inject
+    private Application application;
+
     private String getAuthToken(){
-        return "test"; //TODO remove before put it in production
+        return (String)application.getProperties().get("authToken");
     }
 
 
