@@ -17,11 +17,17 @@ import java.io.IOException;
  */
 public class Main {
     private WebTarget target;
-    private JTextArea textArea;
+    private JPanel panel1;
+    private JTextArea dataArea;
+    private JButton infoButton;
+    private JButton nextButton;
+    private JButton playButton;
+    private JButton pauseButton;
+    private JButton stopButton;
 
     private void updateMusicData(){
         String res = target.path("music").request().get(String.class);
-        textArea.setText(res);
+        dataArea.setText(res);
     }
 
     public Main(ConfigurationManager configurationManager){
@@ -31,64 +37,29 @@ public class Main {
 
         JFrame frame = new JFrame("Mpd controller");
 
-        frame.setLayout(new BorderLayout());
+        infoButton.addActionListener((actionEvent) -> updateMusicData() );
 
-        JPanel center = new JPanel();
-        textArea = new JTextArea(3, 40);
-        center.add(textArea);
-        frame.add(center, BorderLayout.CENTER);
-
-        JPanel north = new JPanel();
-        JButton info = new JButton("Info");
-        info.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                updateMusicData();
-            }
-        });
-        north.add(info);
-
-        JButton next = new JButton("Next");
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        nextButton.addActionListener((actionEvent) -> {
                 target.path("next").request().put(Entity.text(""), String.class);
                 updateMusicData();
-            }
         });
-        north.add(next);
 
-        JButton play = new JButton("Play");
-        play.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        playButton.addActionListener((actionEvent) -> {
                 target.path("play").request().put(Entity.text(""), String.class);
                 updateMusicData();
-            }
         });
-        north.add(play);
 
-        JButton pause = new JButton("Pause");
-        pause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        pauseButton.addActionListener((actionEvent) -> {
                 target.path("pause").request().put(Entity.text(""), String.class);
                 updateMusicData();
-            }
         });
-        north.add(pause);
 
-        JButton stop = new JButton("Stop");
-        stop.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        stopButton.addActionListener((actionEvent) -> {
                 target.path("stop").request().put(Entity.text(""), String.class);
                 updateMusicData();
-            }
         });
-        north.add(stop);
 
-        frame.add(north, BorderLayout.NORTH);
+        frame.add(panel1);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
