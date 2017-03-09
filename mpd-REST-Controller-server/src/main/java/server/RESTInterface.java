@@ -1,7 +1,5 @@
 package server;
 
-import common.ConfigurationManager;
-
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;

@@ -27,10 +27,4 @@ public class ConfigurationManager {
     public String getCompleteUrl(){
         return url + ":" + port;
     }
-
-    public static void main(String args[]) throws IOException {
-        ConfigurationManager configurationManager = new ConfigurationManager("config.properties");
-        System.out.println(configurationManager.getAuthToken());
-        System.out.println(configurationManager.getCompleteUrl());
-    }
 }

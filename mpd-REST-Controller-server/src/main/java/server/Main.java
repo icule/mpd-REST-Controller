@@ -15,8 +15,6 @@ import java.util.Map;
  *
  */
 public class Main {
-    public static final String BASE_URI = "http://localhost:6061/";
-
 
     public static HttpServer startServer() throws IOException {
         ConfigurationManager configurationManager = new ConfigurationManager("config.properties");
@@ -34,7 +32,7 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        final HttpServer server = startServer();
+        startServer();
     }
 }
 
