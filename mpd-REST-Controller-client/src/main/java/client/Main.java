@@ -41,23 +41,23 @@ public class Main {
         infoButton.addActionListener(actionEvent -> updateMusicData());
 
         nextButton.addActionListener(actionEvent -> {
-                target.path("next").request().put(Entity.text(""), String.class);
-                updateMusicData();
+            target.path("next").request().put(Entity.text(""), String.class);
+            updateMusicData();
         });
 
         playButton.addActionListener(actionEvent -> {
-                target.path("play").request().put(Entity.text(""), String.class);
-                updateMusicData();
+            target.path("play").request().put(Entity.text(""), String.class);
+            updateMusicData();
         });
 
         pauseButton.addActionListener(actionEvent -> {
-                target.path("pause").request().put(Entity.text(""), String.class);
-                updateMusicData();
+            target.path("pause").request().put(Entity.text(""), String.class);
+            updateMusicData();
         });
 
         stopButton.addActionListener(actionEvent -> {
-                target.path("stop").request().put(Entity.text(""), String.class);
-                updateMusicData();
+            target.path("stop").request().put(Entity.text(""), String.class);
+            updateMusicData();
         });
 
         frame.add(panel1);
