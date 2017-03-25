@@ -30,6 +30,19 @@
       <artifactId>guice</artifactId>
       <version>4.1.0</version>
     </dependency>
+
+    <!--Redirect Apache Commons Logging to Slf4J -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+    <!--Redirect Java Util Logging to Slf4J -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.7.5</version>
+    </dependency>
   </dependencies>
 
   <build>
