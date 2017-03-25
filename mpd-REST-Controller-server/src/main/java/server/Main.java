@@ -1,29 +1,24 @@
 package server;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import common.ConfigurationManager;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Main class.
  *
  */
 public class Main {
-
-    public static HttpServer startServer() throws IOException {
-        ConfigurationManager configurationManager = new ConfigurationManager("config.properties");
-
-        final ResourceConfig rc = new ResourceConfig().packages("server");
-        Map<String, Object> config = new HashMap<String, Object>();
-        config.put("authToken", configurationManager.getAuthToken());
-        rc.addProperties(config);
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create("http://" + configurationManager.getCompleteUrl()), rc);
+    private static class ServerModule extends AbstractModule {
+        @Override
+        protected void configure() {
+            bind(ConfigurationManager.class);
+            bind(RESTServer.class);
+        }
     }
 
     /**
@@ -32,7 +27,9 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        startServer();
+        Injector injector = Guice.createInjector(new ServerModule());
+        injector.getInstance(ConfigurationManager.class).loadConfiguration("config.properties");
+        injector.getInstance(RESTServer.class);
     }
 }
 
