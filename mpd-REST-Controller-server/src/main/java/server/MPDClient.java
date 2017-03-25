@@ -21,4 +21,16 @@ public class MPDClient {
     public void next() throws MPDPlayerException {
         this.mpdConnection.getPlayer().playNext();
     }
+
+    public void play() throws MPDPlayerException {
+        this.mpdConnection.getPlayer().play();
+    }
+
+    public void pause() throws MPDPlayerException {
+        this.mpdConnection.getPlayer().pause();
+    }
+
+    public void stop() throws MPDPlayerException {
+        this.mpdConnection.getPlayer().stop();
+    }
 }

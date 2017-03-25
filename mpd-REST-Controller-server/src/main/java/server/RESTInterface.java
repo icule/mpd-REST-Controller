@@ -49,9 +49,10 @@ public class RESTInterface {
     @Path("{authToken}/play")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putPlay(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+    public String putPlay(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
         if(token.equals(getAuthToken())){
-            return Executor.executeCommand("mpc play");
+            getMPDClient().play();
+            return "";
         }
         throw new ForbiddenException("Bad token");
     }
@@ -59,9 +60,10 @@ public class RESTInterface {
     @Path("{authToken}/pause")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putPause(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+    public String putPause(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
         if(token.equals(getAuthToken())){
-            return Executor.executeCommand("mpc pause");
+            getMPDClient().pause();
+            return "";
         }
         throw new ForbiddenException("Bad token");
     }
@@ -69,9 +71,10 @@ public class RESTInterface {
     @Path("{authToken}/stop")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putStop(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+    public String putStop(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
         if(token.equals(getAuthToken())){
-            return Executor.executeCommand("mpc stop");
+            getMPDClient().stop();
+            return "";
         }
         throw new ForbiddenException("Bad token");
     }
