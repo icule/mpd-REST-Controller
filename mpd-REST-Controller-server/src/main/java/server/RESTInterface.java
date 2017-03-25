@@ -1,5 +1,6 @@
 package server;
 
+import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
 
 import javax.inject.Inject;
@@ -28,9 +29,9 @@ public class RESTInterface {
     @Path("{authToken}/music")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getMusic(@PathParam("authToken") String token) throws IOException, InterruptedException {
+    public String getMusic(@PathParam("authToken") String token) throws IOException, InterruptedException, MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
-            return Executor.executeCommand("mpc");
+            return getMPDClient().getSongInfo();
         }
         throw new ForbiddenException("Bad token");
     }
@@ -38,10 +39,10 @@ public class RESTInterface {
     @Path("{authToken}/next")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putNext(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
+    public String putNext(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
             getMPDClient().next();
-            return "";
+            return getMPDClient().getSongInfo();
         }
         throw new ForbiddenException("Bad token");
     }
@@ -49,10 +50,10 @@ public class RESTInterface {
     @Path("{authToken}/play")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putPlay(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
+    public String putPlay(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
             getMPDClient().play();
-            return "";
+            return getMPDClient().getSongInfo();
         }
         throw new ForbiddenException("Bad token");
     }
@@ -60,10 +61,10 @@ public class RESTInterface {
     @Path("{authToken}/pause")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putPause(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
+    public String putPause(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
             getMPDClient().pause();
-            return "";
+            return getMPDClient().getSongInfo();
         }
         throw new ForbiddenException("Bad token");
     }
@@ -71,10 +72,10 @@ public class RESTInterface {
     @Path("{authToken}/stop")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putStop(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
+    public String putStop(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
             getMPDClient().stop();
-            return "";
+            return getMPDClient().getSongInfo();
         }
         throw new ForbiddenException("Bad token");
     }

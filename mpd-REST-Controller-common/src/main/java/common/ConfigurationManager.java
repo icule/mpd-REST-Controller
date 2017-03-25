@@ -34,12 +34,4 @@ public class ConfigurationManager {
     public String getCompleteUrl(){
         return url + ":" + port;
     }
-
-    public String getUrl(){
-        return this.url;
-    }
-
-    public int getPort() {
-        return Integer.parseInt(this.port);
-    }
 }
