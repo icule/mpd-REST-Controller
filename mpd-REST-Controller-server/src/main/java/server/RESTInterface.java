@@ -1,5 +1,7 @@
 package server;
 
+import org.bff.javampd.exception.MPDPlayerException;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
@@ -18,6 +20,10 @@ public class RESTInterface {
         return (String)application.getProperties().get("authToken");
     }
 
+    private MPDClient getMPDClient() {
+        return (MPDClient)application.getProperties().get("mpdClient");
+    }
+
 
     @Path("{authToken}/music")
     @GET
@@ -32,9 +38,10 @@ public class RESTInterface {
     @Path("{authToken}/next")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public String putNext(@PathParam("authToken") String token, String body) throws IOException, InterruptedException {
+    public String putNext(@PathParam("authToken") String token, String body) throws IOException, InterruptedException, MPDPlayerException {
         if(token.equals(getAuthToken())){
-            return Executor.executeCommand("mpc next");
+            getMPDClient().next();
+            return "";
         }
         throw new ForbiddenException("Bad token");
     }
