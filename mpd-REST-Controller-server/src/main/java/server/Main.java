@@ -3,10 +3,14 @@ package server;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 import common.ConfigurationManager;
 import org.slf4j.LoggerFactory;
+import server.database.DatabaseManager;
+import server.database.MusicTag;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 /**
@@ -19,6 +23,7 @@ public class Main {
         protected void configure() {
             bind(ConfigurationManager.class);
             bind(RESTServer.class);
+            bind(DatabaseManager.class).in(Singleton.class);
         }
     }
 
@@ -27,7 +32,7 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
         org.slf4j.Logger logger = LoggerFactory.getLogger(Class.forName("org.bff.javampd.Player"));
         if (logger != null && logger instanceof ch.qos.logback.classic.Logger) {
             //the slf4j Logger interface doesn't expose any configuration API's, but
@@ -37,7 +42,13 @@ public class Main {
         }
         Injector injector = Guice.createInjector(new ServerModule());
         injector.getInstance(ConfigurationManager.class).loadConfiguration("config.properties");
+
+        DatabaseManager manager = injector.getInstance(DatabaseManager.class);
+        manager.init();
         injector.getInstance(RESTServer.class);
+
+
+        manager.close();
     }
 }
 

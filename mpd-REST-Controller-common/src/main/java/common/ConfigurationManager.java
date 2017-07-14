@@ -13,6 +13,7 @@ public class ConfigurationManager {
     private String authToken;
     private String url;
     private String port;
+    private String databasePath;
 
     @Inject
     public ConfigurationManager() throws IOException {
@@ -25,6 +26,7 @@ public class ConfigurationManager {
         authToken = properties.getProperty("authToken");
         url = properties.getProperty("url");
         port = properties.getProperty("port");
+        databasePath = properties.getProperty("database.file");
     }
 
     public String getAuthToken(){
@@ -33,5 +35,9 @@ public class ConfigurationManager {
 
     public String getCompleteUrl(){
         return url + ":" + port;
+    }
+
+    public String getDatabasePath() {
+        return databasePath;
     }
 }
