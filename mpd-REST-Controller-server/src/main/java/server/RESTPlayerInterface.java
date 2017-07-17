@@ -13,7 +13,7 @@ import java.io.IOException;
  * Root resource (exposed at "player" path)
  */
 @Path("player")
-public class RESTInterface {
+public class RESTPlayerInterface {
     @Inject
     private Application application;
 
