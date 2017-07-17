@@ -1,7 +1,8 @@
-package server;
+package server.REST;
 
 import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
+import server.MPDClient;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -13,18 +14,7 @@ import java.io.IOException;
  * Root resource (exposed at "player" path)
  */
 @Path("player")
-public class RESTPlayerInterface {
-    @Inject
-    private Application application;
-
-    private String getAuthToken(){
-        return (String)application.getProperties().get("authToken");
-    }
-
-    private MPDClient getMPDClient() {
-        return (MPDClient)application.getProperties().get("mpdClient");
-    }
-
+public class RESTPlayerInterface extends RESTAbstractInterface{
 
     @Path("{authToken}/music")
     @GET

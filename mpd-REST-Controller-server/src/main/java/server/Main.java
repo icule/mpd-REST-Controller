@@ -6,8 +6,8 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import common.ConfigurationManager;
 import org.slf4j.LoggerFactory;
+import server.REST.RESTServer;
 import server.database.DatabaseManager;
-import server.database.MusicTag;
 
 import java.io.IOException;
 import java.sql.SQLException;

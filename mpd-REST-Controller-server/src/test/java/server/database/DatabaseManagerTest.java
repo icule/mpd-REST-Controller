@@ -7,7 +7,6 @@ import com.google.inject.Singleton;
 import common.ConfigurationManager;
 import org.junit.Before;
 import org.junit.Test;
-import server.RESTServer;
 import server.data.MusicInfo;
 import server.data.Tag;
 
