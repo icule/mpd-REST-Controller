@@ -7,11 +7,13 @@ public class MusicInfo {
     private String filename;
     private String title;
     private String artist;
+    private Tag tag;
 
-    public MusicInfo(String filename, String title, String artist) {
+    public MusicInfo(String filename, String title, String artist, Tag tag) {
         this.filename = filename;
         this.title = title;
         this.artist = artist;
+        this.tag = tag;
     }
 
     public String getFilename() {
@@ -24,5 +26,9 @@ public class MusicInfo {
 
     public String getArtist() {
         return artist;
+    }
+
+    public Tag getTag() {
+        return tag;
     }
 }
