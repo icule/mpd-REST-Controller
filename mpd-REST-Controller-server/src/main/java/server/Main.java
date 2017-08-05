@@ -46,9 +46,6 @@ public class Main {
         DatabaseManager manager = injector.getInstance(DatabaseManager.class);
         manager.init();
         injector.getInstance(RESTServer.class);
-
-
-        manager.close();
     }
 }
 

@@ -8,7 +8,7 @@ import common.ConfigurationManager;
 import org.junit.Before;
 import org.junit.Test;
 import server.data.MusicInfo;
-import server.data.Tag;
+import common.Tag;
 
 import java.io.File;
 import java.io.IOException;

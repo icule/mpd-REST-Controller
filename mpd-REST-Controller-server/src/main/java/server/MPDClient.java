@@ -7,6 +7,7 @@ import org.bff.javampd.exception.MPDConnectionException;
 import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
 import org.bff.javampd.objects.MPDSong;
+import server.data.MusicInfo;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -49,7 +50,7 @@ public class MPDClient {
         return res;
     }
 
-    public String getSongInfo() throws MPDPlayerException, MPDDatabaseException {
+    public String getInfo() throws MPDPlayerException, MPDDatabaseException {
         MPDSong mpdSong = this.mpdConnection.getPlayer().getCurrentSong();
         Player mpdPlayer = this.mpdConnection.getPlayer();
 
@@ -62,5 +63,9 @@ public class MPDClient {
 
         res += "\n" + mpdSong.getFile();
         return res;
+    }
+
+    public MPDSong getMusicInfo() throws MPDPlayerException {
+        return this.mpdConnection.getPlayer().getCurrentSong();
     }
 }

@@ -49,11 +49,15 @@ public class DatabaseManager {
     }
 
     public void registerTag(MusicInfo info) throws SQLException {
+        System.out.println("Balbla");
         this.musicTag.registerTag(info);
+        System.out.println("s");
         this.commit();
+        System.out.println(this.getTaggedMusic());
     }
 
     public List<MusicInfo> getTaggedMusic() throws SQLException {
+        System.out.println("lala");
         return this.musicTag.getMusicInfoList();
     }
 }

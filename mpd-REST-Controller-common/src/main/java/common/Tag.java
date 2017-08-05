@@ -1,4 +1,4 @@
-package server.data;
+package common;
 
 /**
  * Created by icule on 17/07/17.

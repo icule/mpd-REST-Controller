@@ -1,5 +1,7 @@
 package server.data;
 
+import common.Tag;
+
 /**
  * Created by icule on 14/07/17.
  */
@@ -30,5 +32,9 @@ public class MusicInfo {
 
     public Tag getTag() {
         return tag;
+    }
+
+    public String toString() {
+        return filename + " || " + title + " || " + artist + " || " + tag;
     }
 }

@@ -1,12 +1,11 @@
 package server.database;
 
 import server.data.MusicInfo;
-import server.data.Tag;
+import common.Tag;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +26,26 @@ public class MusicTag {
                 "filename varchar(250) PRIMARY KEY," +
                 "title varchar(250), " +
                 "artist varchar(250)," +
-                "tag varchar(25));";
+                "music_tag varchar(25));";
+        System.out.println(query);
         PreparedStatement statement = databaseManager.getPreparedStatement(query);
         statement.execute();
         System.out.println("Execute create table request");
     }
 
     public void registerTag(MusicInfo info) throws SQLException {
-        String query = "INSERT INTO MusicTag VALUES (?, ?, ?, ?);";
-        PreparedStatement preparedStatement = databaseManager.getPreparedStatement(query);
-        preparedStatement.setString(1, info.getFilename());
-        preparedStatement.setString(2, info.getTitle());
-        preparedStatement.setString(3, info.getArtist());
-        preparedStatement.setString(4, info.getTag().toString());
-        preparedStatement.executeUpdate();
+        try {
+            String query = "INSERT INTO MusicTag VALUES (?, ?, ?, ?);";
+            PreparedStatement preparedStatement = databaseManager.getPreparedStatement(query);
+            preparedStatement.setString(1, info.getFilename());
+            preparedStatement.setString(2, info.getTitle());
+            preparedStatement.setString(3, info.getArtist());
+            preparedStatement.setString(4, info.getTag().toString());
+            preparedStatement.executeUpdate();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public List<MusicInfo> getMusicInfoList() throws SQLException {

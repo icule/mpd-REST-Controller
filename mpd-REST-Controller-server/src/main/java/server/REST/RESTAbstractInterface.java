@@ -1,6 +1,7 @@
 package server.REST;
 
 import server.MPDClient;
+import server.database.DatabaseManager;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Application;
@@ -18,5 +19,9 @@ public class RESTAbstractInterface {
 
     MPDClient getMPDClient() {
         return (MPDClient)application.getProperties().get("mpdClient");
+    }
+
+    DatabaseManager getDatabaseManager() {
+        return (DatabaseManager)application.getProperties().get("database");
     }
 }
