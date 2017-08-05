@@ -1,13 +1,13 @@
-package server;
+package iculesgate.mpd_controller.server;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import common.ConfigurationManager;
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import org.slf4j.LoggerFactory;
-import server.REST.RESTServer;
-import server.database.DatabaseManager;
+import iculesgate.mpd_controller.REST.RESTServer;
+import iculesgate.mpd_controller.database.DatabaseManager;
 
 import java.io.IOException;
 import java.sql.SQLException;

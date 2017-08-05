@@ -1,14 +1,14 @@
-package server.database;
+package iculesgate.mpd_controller.database;
 
-import common.ConfigurationManager;
-import server.data.MusicInfo;
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
+import iculesgate.mpd_controller.data.Tag;
+import iculesgate.mpd_controller.data.MusicInfo;
 
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,15 +49,16 @@ public class DatabaseManager {
     }
 
     public void registerTag(MusicInfo info) throws SQLException {
-        System.out.println("Balbla");
         this.musicTag.registerTag(info);
-        System.out.println("s");
         this.commit();
-        System.out.println(this.getTaggedMusic());
+        System.out.println(getTaggedMusic());
     }
 
     public List<MusicInfo> getTaggedMusic() throws SQLException {
-        System.out.println("lala");
         return this.musicTag.getMusicInfoList();
+    }
+
+    public Tag getTag(String filename) throws SQLException {
+        return musicTag.getTag(filename);
     }
 }

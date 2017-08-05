@@ -1,4 +1,4 @@
-package server.REST;
+package iculesgate.mpd_controller.REST;
 
 import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
@@ -67,7 +67,8 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     public String putStop(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
             getMPDClient().stop();
-            return getMPDClient().getInfo();
+            String res = getMPDClient().getInfo();
+            return res;
         }
         throw new ForbiddenException("Bad token");
     }

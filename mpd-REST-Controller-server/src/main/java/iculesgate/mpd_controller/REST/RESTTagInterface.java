@@ -1,4 +1,4 @@
-package server.REST;
+package iculesgate.mpd_controller.REST;
 
 /**
  * Created by icule on 17/07/17.
@@ -8,8 +8,8 @@ import com.google.inject.Inject;
 import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
 import org.bff.javampd.objects.MPDSong;
-import server.data.MusicInfo;
-import common.Tag;
+import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.Tag;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;

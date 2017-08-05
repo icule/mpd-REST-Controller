@@ -1,7 +1,7 @@
-package server.database;
+package iculesgate.mpd_controller.database;
 
-import server.data.MusicInfo;
-import common.Tag;
+import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.Tag;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,7 +61,22 @@ public class MusicTag {
                     Tag.valueOf(resultSet.getString(4)));
             res.add(info);
         }
+        statement.close();
 
+        return res;
+    }
+
+    public Tag getTag(String filename) throws SQLException {
+        Tag res = null;
+        String query = "SELECT tag from MusicTag WHERE filename=?";
+        PreparedStatement statement = databaseManager.getPreparedStatement(query);
+        statement.setString(1, filename);
+        ResultSet resultSet = statement.executeQuery();
+
+        if(resultSet.next()) {
+            res = Tag.valueOf(resultSet.getString(1));
+        }
+        resultSet.close();
         return res;
     }
 

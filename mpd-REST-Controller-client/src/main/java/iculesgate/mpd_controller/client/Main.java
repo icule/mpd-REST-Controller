@@ -1,4 +1,4 @@
-package client;
+package iculesgate.mpd_controller.client;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -6,8 +6,8 @@ import com.google.inject.Injector;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import common.ConfigurationManager;
-import common.Tag;
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
+import iculesgate.mpd_controller.data.Tag;
 
 import javax.inject.Inject;
 import javax.swing.*;

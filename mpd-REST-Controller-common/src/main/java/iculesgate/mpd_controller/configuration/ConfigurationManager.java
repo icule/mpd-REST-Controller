@@ -1,4 +1,4 @@
-package common;
+package iculesgate.mpd_controller.configuration;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

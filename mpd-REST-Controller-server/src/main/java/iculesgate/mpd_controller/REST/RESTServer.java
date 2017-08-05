@@ -1,11 +1,11 @@
-package server.REST;
+package iculesgate.mpd_controller.REST;
 
-import common.ConfigurationManager;
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import server.MPDClient;
-import server.database.DatabaseManager;
+import iculesgate.mpd_controller.mpd.MPDClient;
+import iculesgate.mpd_controller.database.DatabaseManager;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

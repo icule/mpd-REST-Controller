@@ -1,14 +1,14 @@
-package server.database;
+package iculesgate.mpd_controller.database;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
-import common.ConfigurationManager;
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import org.junit.Before;
 import org.junit.Test;
-import server.data.MusicInfo;
-import common.Tag;
+import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.Tag;
 
 import java.io.File;
 import java.io.IOException;

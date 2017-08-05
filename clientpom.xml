@@ -64,7 +64,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>server.Main</mainClass>
+                    <mainClass>iculesgate.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -83,7 +83,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>client.Main</mainClass>
+                            <mainClass>iculesgate.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

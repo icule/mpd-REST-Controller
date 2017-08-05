@@ -1,13 +1,12 @@
-package server;
+package iculesgate.mpd_controller.mpd;
 
-import common.ConfigurationManager;
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import org.bff.javampd.MPD;
 import org.bff.javampd.Player;
 import org.bff.javampd.exception.MPDConnectionException;
 import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
 import org.bff.javampd.objects.MPDSong;
-import server.data.MusicInfo;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -1,7 +1,7 @@
-package server.REST;
+package iculesgate.mpd_controller.REST;
 
-import server.MPDClient;
-import server.database.DatabaseManager;
+import iculesgate.mpd_controller.mpd.MPDClient;
+import iculesgate.mpd_controller.database.DatabaseManager;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.Application;
