@@ -7,8 +7,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 import iculesgate.mpd_controller.mpd.MPDClient;
 import iculesgate.mpd_controller.database.DatabaseManager;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +23,8 @@ public class RESTServer {
     private HttpServer server;
 
     @Inject
-    public RESTServer(ConfigurationManager configurationManager, MPDClient mpdClient, DatabaseManager databaseManager){
-        final ResourceConfig rc = new ResourceConfig().packages("server.REST");
+    public RESTServer(ConfigurationManager configurationManager, MPDClient mpdClient, DatabaseManager databaseManager) throws IOException {
+        final ResourceConfig rc = new ResourceConfig().packages("iculesgate.mpd_controller.REST");
         Map<String, Object> config = new HashMap<>();
         config.put("authToken", configurationManager.getAuthToken());
         config.put("mpdClient", mpdClient);
