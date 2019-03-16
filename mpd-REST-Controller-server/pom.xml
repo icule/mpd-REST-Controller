@@ -22,7 +22,7 @@
     <dependency>
       <groupId>net.thejavashop</groupId>
       <artifactId>javampd</artifactId>
-      <version>5.0.3</version>
+      <version>6.0.0</version>
       <exclusions>
         <exclusion>  <!-- declare the exclusion here -->
           <groupId>ch.qos.logback</groupId>

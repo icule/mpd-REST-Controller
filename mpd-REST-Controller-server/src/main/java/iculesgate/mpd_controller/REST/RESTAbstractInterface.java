@@ -32,4 +32,10 @@ public class RESTAbstractInterface {
     DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
+
+    void checkToken(final String token) throws AuthenticationException {
+        if (!token.equals(configurationManager.getAuthToken())) {
+            throw new AuthenticationException("Token " + token + " isn't valid");
+        }
+    }
 }

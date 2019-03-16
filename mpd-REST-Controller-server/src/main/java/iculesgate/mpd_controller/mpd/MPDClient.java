@@ -1,12 +1,11 @@
 package iculesgate.mpd_controller.mpd;
 
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
-import org.bff.javampd.MPD;
-import org.bff.javampd.Player;
-import org.bff.javampd.exception.MPDConnectionException;
-import org.bff.javampd.exception.MPDDatabaseException;
-import org.bff.javampd.exception.MPDPlayerException;
-import org.bff.javampd.objects.MPDSong;
+
+import org.bff.javampd.player.Player;
+import org.bff.javampd.server.MPD;
+import org.bff.javampd.server.MPDConnectionException;
+import org.bff.javampd.song.MPDSong;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,22 +19,22 @@ public class MPDClient {
 
     @Inject
     public MPDClient(ConfigurationManager configurationManager) throws MPDConnectionException {
-      this.mpdConnection = (new MPD.Builder()).build();
+      this.mpdConnection = new MPD.Builder().build();
     }
 
-    public void next() throws MPDPlayerException {
+    public void next() {
         this.mpdConnection.getPlayer().playNext();
     }
 
-    public void play() throws MPDPlayerException {
+    public void play() {
         this.mpdConnection.getPlayer().play();
     }
 
-    public void pause() throws MPDPlayerException {
+    public void pause() {
         this.mpdConnection.getPlayer().pause();
     }
 
-    public void stop() throws MPDPlayerException {
+    public void stop() {
         this.mpdConnection.getPlayer().stop();
     }
 
@@ -49,11 +48,11 @@ public class MPDClient {
         return res;
     }
 
-    public String getInfo() throws MPDPlayerException, MPDDatabaseException {
+    public String getInfo() {
         MPDSong mpdSong = this.mpdConnection.getPlayer().getCurrentSong();
         Player mpdPlayer = this.mpdConnection.getPlayer();
 
-        int songCount = this.mpdConnection.getPlaylist().getDatabase().getSongCount();
+        int songCount = this.mpdConnection.getPlaylist().getSongList().size();
         String res = mpdSong.getArtistName() + " - " + mpdSong.getTitle();
 
         res += "\n[" + mpdPlayer.getStatus().getPrefix() + "]";
@@ -64,7 +63,7 @@ public class MPDClient {
         return res;
     }
 
-    public MPDSong getMusicInfo() throws MPDPlayerException {
+    public MPDSong getMusicInfo() {
         return this.mpdConnection.getPlayer().getCurrentSong();
     }
 }

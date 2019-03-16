@@ -1,12 +1,5 @@
 package iculesgate.mpd_controller.REST;
 
-import iculesgate.mpd_controller.configuration.ConfigurationManager;
-import iculesgate.mpd_controller.database.DatabaseManager;
-import iculesgate.mpd_controller.mpd.MPDClient;
-import org.bff.javampd.exception.MPDDatabaseException;
-import org.bff.javampd.exception.MPDPlayerException;
-
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -20,59 +13,53 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @GET
     @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.TEXT_PLAIN)
-    public String getMusic(@PathParam("authToken") String token) throws MPDPlayerException, MPDDatabaseException {
-        if(token.equals(getAuthToken())){
-            return getMPDClient().getInfo();
-        }
-        throw new ForbiddenException("Bad token");
+    public String getMusic(@PathParam("authToken") String token) throws AuthenticationException {
+        checkToken(token);
+
+        return getMPDClient().getInfo();
     }
 
     @Path("{authToken}/next")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String putNext(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
-        if(token.equals(getAuthToken())){
-            getMPDClient().next();
-            return getMPDClient().getInfo();
-        }
-        throw new ForbiddenException("Bad token");
+    public String putNext(@PathParam("authToken") String token, String body) throws AuthenticationException {
+        checkToken(token);
+
+        getMPDClient().next();
+        return getMPDClient().getInfo();
     }
 
     @Path("{authToken}/play")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String putPlay(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
-        if(token.equals(getAuthToken())){
-            getMPDClient().play();
-            return getMPDClient().getInfo();
-        }
-        throw new ForbiddenException("Bad token");
+    public String putPlay(@PathParam("authToken") String token, String body) throws AuthenticationException {
+        checkToken(token);
+
+        getMPDClient().play();
+        return getMPDClient().getInfo();
     }
 
     @Path("{authToken}/pause")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String putPause(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
-        if(token.equals(getAuthToken())){
-            getMPDClient().pause();
-            return getMPDClient().getInfo();
-        }
-        throw new ForbiddenException("Bad token");
+    public String putPause(@PathParam("authToken") String token, String body) throws AuthenticationException {
+        checkToken(token);
+
+        getMPDClient().pause();
+        return getMPDClient().getInfo();
     }
 
     @Path("{authToken}/stop")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String putStop(@PathParam("authToken") String token, String body) throws MPDPlayerException, MPDDatabaseException {
-        if(token.equals(getAuthToken())){
-            getMPDClient().stop();
-            String res = getMPDClient().getInfo();
-            return res;
-        }
-        throw new ForbiddenException("Bad token");
+    public String putStop(@PathParam("authToken") String token, String body) throws AuthenticationException {
+        checkToken(token);
+
+        getMPDClient().stop();
+        return getMPDClient().getInfo();
     }
 }
