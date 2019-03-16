@@ -1,0 +1,9 @@
+.idea/*
+*.iml
+
+*.jar
+*.db
+
+.directory
+test.properties
+**/target
