@@ -56,7 +56,7 @@ public class MPDClient {
         String res = mpdSong.getArtistName() + " - " + mpdSong.getTitle();
 
         res += "\n[" + mpdPlayer.getStatus().getPrefix() + "]";
-        res += " #" + mpdSong.getId() + "/" + songCount;
+        res += " #" + mpdSong.getPosition() + "/" + songCount;
         res += "  " + longToTime(mpdPlayer.getElapsedTime()) + "/" + longToTime(mpdPlayer.getTotalTime());
 
         res += "\n" + mpdSong.getFile();
