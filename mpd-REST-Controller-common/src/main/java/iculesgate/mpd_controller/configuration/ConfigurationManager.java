@@ -16,7 +16,7 @@ public class ConfigurationManager {
     private String databasePath;
 
     @Inject
-    public ConfigurationManager() throws IOException {
+    public ConfigurationManager() {
     }
 
     public void loadConfiguration(String path) throws IOException {
