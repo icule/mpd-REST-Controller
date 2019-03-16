@@ -32,14 +32,7 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
-        org.slf4j.Logger logger = LoggerFactory.getLogger(Class.forName("org.bff.javampd.Player"));
-        if (logger != null && logger instanceof ch.qos.logback.classic.Logger) {
-            //the slf4j Logger interface doesn't expose any configuration API's, but
-            //we can cast to a class that does; so cast it and disable the logger
-            ((ch.qos.logback.classic.Logger)logger).setLevel(
-                    ch.qos.logback.classic.Level.OFF);
-        }
+    public static void main(String[] args) throws IOException, SQLException {
         Injector injector = Guice.createInjector(new ServerModule());
         injector.getInstance(ConfigurationManager.class).loadConfiguration("config.properties");
 

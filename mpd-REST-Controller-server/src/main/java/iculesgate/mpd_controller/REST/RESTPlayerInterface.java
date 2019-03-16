@@ -1,11 +1,14 @@
 package iculesgate.mpd_controller.REST;
 
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
+import iculesgate.mpd_controller.database.DatabaseManager;
+import iculesgate.mpd_controller.mpd.MPDClient;
 import org.bff.javampd.exception.MPDDatabaseException;
 import org.bff.javampd.exception.MPDPlayerException;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 
 /**
  * Root resource (exposed at "player" path)
@@ -17,7 +20,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @GET
     @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.TEXT_PLAIN)
-    public String getMusic(@PathParam("authToken") String token) throws IOException, InterruptedException, MPDPlayerException, MPDDatabaseException {
+    public String getMusic(@PathParam("authToken") String token) throws MPDPlayerException, MPDDatabaseException {
         if(token.equals(getAuthToken())){
             return getMPDClient().getInfo();
         }

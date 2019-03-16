@@ -1,27 +1,35 @@
 package iculesgate.mpd_controller.REST;
 
+
+import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import iculesgate.mpd_controller.mpd.MPDClient;
 import iculesgate.mpd_controller.database.DatabaseManager;
 
 import javax.inject.Inject;
-import javax.ws.rs.core.Application;
 
 /**
  * Created by icule on 17/07/17.
  */
 public class RESTAbstractInterface {
     @Inject
-    private Application application;
+    private DatabaseManager databaseManager;
 
-    String getAuthToken(){
-        return (String)application.getProperties().get("authToken");
+    @Inject
+    private ConfigurationManager configurationManager;
+
+    @Inject
+    private MPDClient mpdClient;
+
+
+    String getAuthToken() {
+        return configurationManager.getAuthToken();
     }
 
     MPDClient getMPDClient() {
-        return (MPDClient)application.getProperties().get("mpdClient");
+        return mpdClient;
     }
 
     DatabaseManager getDatabaseManager() {
-        return (DatabaseManager)application.getProperties().get("database");
+        return databaseManager;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,35 +24,29 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-grizzly2-http</artifactId>
-        </dependency>
-        <!-- uncomment this to get JSON support:
-         <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
-        </dependency>
-        -->
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.9</version>
             <scope>test</scope>
         </dependency>
 
-
+        <dependency>
+            <groupId>io.logz</groupId>
+            <artifactId>guice-jersey</artifactId>
+            <version>1.0.6</version>
+        </dependency>
     </dependencies>
 
     <properties>
-        <jersey.version>2.25.1</jersey.version>
+        <jersey.version>2.28</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-  <modules>
-      <module>mpd-REST-Controller-common</module>
-    <module>mpd-REST-Controller-client</module>
-    <module>mpd-REST-Controller-server</module>
+    <modules>
+        <module>mpd-REST-Controller-common</module>
+        <module>mpd-REST-Controller-client</module>
+        <module>mpd-REST-Controller-server</module>
 
-  </modules>
+    </modules>
 
 
 </project>
