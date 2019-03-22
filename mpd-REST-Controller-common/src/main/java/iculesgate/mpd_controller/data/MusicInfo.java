@@ -18,13 +18,6 @@ public class MusicInfo {
         this.tag = tag;
     }
 
-    public MusicInfo(String filename, String title, String artist) {
-        this.filename = filename;
-        this.title = title;
-        this.artist = artist;
-        this.tag = null;
-    }
-
     public String getFilename() {
         return filename;
     }
