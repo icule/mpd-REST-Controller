@@ -56,9 +56,9 @@ public class MusicTag {
 
         while(resultSet.next()) {
             MusicInfo info = new MusicInfo(resultSet.getString(1),
-                    resultSet.getString(2),
-                    resultSet.getString(3),
-                    Tag.valueOf(resultSet.getString(4)));
+                                           resultSet.getString(2),
+                                           resultSet.getString(3),
+                                           Tag.valueOf(resultSet.getString(4)));
             res.add(info);
         }
         statement.close();

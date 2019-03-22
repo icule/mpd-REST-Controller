@@ -5,9 +5,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
+import iculesgate.mpd_controller.data.MusicInfo;
 import org.junit.Before;
 import org.junit.Test;
-import iculesgate.mpd_controller.data.MusicInfo;
 import iculesgate.mpd_controller.data.Tag;
 
 import java.io.File;

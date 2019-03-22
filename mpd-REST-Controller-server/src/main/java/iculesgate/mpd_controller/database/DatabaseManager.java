@@ -1,8 +1,8 @@
 package iculesgate.mpd_controller.database;
 
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
-import iculesgate.mpd_controller.data.Tag;
 import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.Tag;
 
 import javax.inject.Inject;
 import java.sql.Connection;
