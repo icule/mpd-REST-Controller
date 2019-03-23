@@ -5,12 +5,12 @@ import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 
 import java.util.UUID;
 
-public class MusicTag {
+public class MusicIdExtractor {
     private static MediaPlayerFactory factory = new MediaPlayerFactory();
 
     private static UUID getId(final String path) {
-        MediaMeta meta = factory.getMediaMeta(path, true);
         try {
+            MediaMeta meta = factory.getMediaMeta(path, true);
             return UUID.fromString(meta.getEncodedBy());
         }
         catch (Exception e) {

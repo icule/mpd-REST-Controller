@@ -5,7 +5,7 @@
   "databaseConfiguration": {
     "path": "./test-db"
   },
-  "libraryPath": {
+  "libraryConfiguration": {
     "rootPath": "Musique"
   }
 }

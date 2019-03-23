@@ -22,7 +22,7 @@ public class MusicTag {
 
     public void init() throws SQLException {
         String query = "CREATE TABLE IF NOT EXISTS " +
-                "MusicTag (" +
+                "MusicIdExtractor (" +
                 "filename varchar(250) PRIMARY KEY," +
                 "title varchar(250), " +
                 "artist varchar(250)," +
@@ -35,7 +35,7 @@ public class MusicTag {
 
     public void registerTag(MusicInfo info) throws SQLException {
         try {
-            String query = "INSERT INTO MusicTag VALUES (?, ?, ?, ?);";
+            String query = "INSERT INTO MusicIdExtractor VALUES (?, ?, ?, ?);";
             PreparedStatement preparedStatement = databaseManager.getPreparedStatement(query);
             preparedStatement.setString(1, info.getFilename());
             preparedStatement.setString(2, info.getTitle());
@@ -50,7 +50,7 @@ public class MusicTag {
 
     public List<MusicInfo> getMusicInfoList() throws SQLException {
         List<MusicInfo> res = new ArrayList<>();
-        String query = "SELECT * FROM MusicTag;";
+        String query = "SELECT * FROM MusicIdExtractor;";
         PreparedStatement statement = databaseManager.getPreparedStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
@@ -69,7 +69,7 @@ public class MusicTag {
 
     public Tag getTag(String filename) throws SQLException {
         Tag res = null;
-        String query = "SELECT tag from MusicTag WHERE filename=?";
+        String query = "SELECT tag from MusicIdExtractor WHERE filename=?";
         PreparedStatement statement = databaseManager.getPreparedStatement(query);
         statement.setString(1, filename);
         ResultSet resultSet = statement.executeQuery();

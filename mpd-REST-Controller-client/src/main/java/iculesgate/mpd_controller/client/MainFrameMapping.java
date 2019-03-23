@@ -70,6 +70,7 @@ public class MainFrameMapping {
         res += "  " + PlayerTiming.longToTime(information.getPlayerTiming().getElapsedTime()) + "/" + PlayerTiming.longToTime(information.getPlayerTiming().getTotalDuration());
 
         res += "\n" + information.getMusicInfo().getFilename();
+        res += "\nMusic id: " + information.getMusicInfo().getMusicId();
 
         return res;
     }

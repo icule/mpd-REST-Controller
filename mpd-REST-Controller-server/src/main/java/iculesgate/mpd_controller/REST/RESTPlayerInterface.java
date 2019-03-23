@@ -18,7 +18,6 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @Produces(MediaType.APPLICATION_JSON)
     public String getMusic(@PathParam("authToken") String token) throws AuthenticationException {
         checkToken(token);
-
         return getInfo();
     }
 

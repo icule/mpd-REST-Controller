@@ -30,7 +30,8 @@ public class TargetClient {
 
     public MpdMusicInformation getCurrentMusicInfo() {
         try (Response response = targetPlayer.path("music").request().get();){
-            return gson.fromJson(response.readEntity(String.class), MpdMusicInformation.class);
+            String payload = response.readEntity(String.class);
+            return gson.fromJson(payload, MpdMusicInformation.class);
         }
     }
 
