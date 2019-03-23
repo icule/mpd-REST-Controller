@@ -56,7 +56,7 @@ public class DatabaseManagerTest {
     @Test
     public void testInsertTagMusic() throws SQLException {
         databaseManager.init();
-        MusicInfo info = new MusicInfo("lala.mp3", "l", "l3", Tag.GOOD);
+        MusicInfo info = new MusicInfo("lala.mp3", "l", "l3", Tag.GOOD, null);
         databaseManager.registerTag(info);
 
         databaseManager.close();
@@ -65,7 +65,7 @@ public class DatabaseManagerTest {
     @Test
     public void testGetMusicList() throws SQLException {
         databaseManager.init();
-        MusicInfo info = new MusicInfo("lala.mp3", "l", "l3", Tag.TO_REMOVE);
+        MusicInfo info = new MusicInfo("lala.mp3", "l", "l3", Tag.TO_REMOVE, null);
 
         databaseManager.registerTag(info);
         List<MusicInfo> infoList = databaseManager.getTaggedMusic();

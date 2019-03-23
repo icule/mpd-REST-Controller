@@ -44,32 +44,14 @@ public class MPDClient {
         this.mpdConnection.getPlayer().stop();
     }
 
-    private String longToTime(long time) {
-        String res = "";
-        if(time >= 3600){
-            res += time / 3600 + ":";
-            time = time % 3600;
-        }
-        res += time / 60 + ":" + time % 60;
-        return res;
-    }
-
     public MpdMusicInformation getInfo() {
         MPDSong mpdSong = this.mpdConnection.getPlayer().getCurrentSong();
         Player mpdPlayer = this.mpdConnection.getPlayer();
-
         int songCount = this.mpdConnection.getPlaylist().getSongList().size();
-        String res = mpdSong.getArtistName() + " - " + mpdSong.getTitle();
-
-        res += "\n[" + mpdPlayer.getStatus().getPrefix() + "]";
-        res += " #" + mpdSong.getPosition() + "/" + songCount;
-        res += "  " + longToTime(mpdPlayer.getElapsedTime()) + "/" + longToTime(mpdPlayer.getTotalTime());
-
-        res += "\n" + mpdSong.getFile();
 
         PlaylistPosition playlistPosition = new PlaylistPosition(mpdSong.getPosition(), songCount);
         PlayerStatus status = PlayerStatus.fromPlayerPrefix(mpdPlayer.getStatus().getPrefix());
-        MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getTag(mpdSong));
+        MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getTag(mpdSong), null);
         PlayerTiming playerTiming = new PlayerTiming(mpdPlayer.getElapsedTime(), mpdPlayer.getTotalTime());
 
         return new MpdMusicInformation(status, musicInfo, playlistPosition, playerTiming);
