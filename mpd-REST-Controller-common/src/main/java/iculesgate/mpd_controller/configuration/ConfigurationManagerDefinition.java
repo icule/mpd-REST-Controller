@@ -23,6 +23,8 @@ public abstract class ConfigurationManagerDefinition {
 
     public abstract DatabaseConfiguration getDatabaseConfiguration();
 
+    public abstract MusicLibraryConfiguration getLibraryConfiguration();
+
     public static ConfigurationManager loadConfiguration(final String path) throws IOException {
         Gson gson = new Gson();
         return gson.fromJson(new FileReader(path), ConfigurationManager.class);

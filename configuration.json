@@ -4,5 +4,8 @@
   "port": "6061",
   "databaseConfiguration": {
     "path": "./test-db"
+  },
+  "libraryPath": {
+    "rootPath": "Musique"
   }
 }
