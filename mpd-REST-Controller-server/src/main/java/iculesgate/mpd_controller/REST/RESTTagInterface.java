@@ -19,7 +19,6 @@ public class RESTTagInterface extends RESTAbstractInterface{
     @Path("{authToken}/tag")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
     public void postTag(@PathParam("authToken") String token, String body) throws SQLException, AuthenticationException {
         checkToken(token);
 
@@ -31,7 +30,6 @@ public class RESTTagInterface extends RESTAbstractInterface{
 
     @Path("list")
     @GET
-    @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.APPLICATION_JSON)
     public String generateTagPage() throws SQLException {
         List<MusicInfo> musicList = getDatabaseManager().getTaggedMusic();

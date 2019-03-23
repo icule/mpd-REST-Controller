@@ -15,8 +15,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
 
     @Path("{authToken}/music")
     @GET
-    @Consumes(MediaType.WILDCARD)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String getMusic(@PathParam("authToken") String token) throws AuthenticationException {
         checkToken(token);
 
@@ -26,7 +25,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @Path("{authToken}/next")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String putNext(@PathParam("authToken") String token, String body) throws AuthenticationException {
         checkToken(token);
 
@@ -37,7 +36,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @Path("{authToken}/play")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String putPlay(@PathParam("authToken") String token, String body) throws AuthenticationException {
         checkToken(token);
 
@@ -48,7 +47,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @Path("{authToken}/pause")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String putPause(@PathParam("authToken") String token, String body) throws AuthenticationException {
         checkToken(token);
 
@@ -59,7 +58,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     @Path("{authToken}/stop")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String putStop(@PathParam("authToken") String token, String body) throws AuthenticationException {
         checkToken(token);
 
