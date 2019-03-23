@@ -32,10 +32,10 @@ public class RESTTagInterface extends RESTAbstractInterface{
     @Path("list")
     @GET
     @Consumes(MediaType.WILDCARD)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String generateTagPage() throws SQLException {
         List<MusicInfo> musicList = getDatabaseManager().getTaggedMusic();
-        return musicList.toString();
+        return getGson().toJson(musicList);
     }
 
 }

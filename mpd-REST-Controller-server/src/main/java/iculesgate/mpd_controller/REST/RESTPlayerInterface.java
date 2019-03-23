@@ -9,6 +9,10 @@ import javax.ws.rs.core.MediaType;
 @Path("player")
 public class RESTPlayerInterface extends RESTAbstractInterface{
 
+    private String getInfo() {
+        return getGson().toJson(getMPDClient().getInfo());
+    }
+
     @Path("{authToken}/music")
     @GET
     @Consumes(MediaType.WILDCARD)
@@ -16,7 +20,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
     public String getMusic(@PathParam("authToken") String token) throws AuthenticationException {
         checkToken(token);
 
-        return getMPDClient().getInfo();
+        return getInfo();
     }
 
     @Path("{authToken}/next")
@@ -27,7 +31,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
         checkToken(token);
 
         getMPDClient().next();
-        return getMPDClient().getInfo();
+        return getInfo();
     }
 
     @Path("{authToken}/play")
@@ -38,7 +42,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
         checkToken(token);
 
         getMPDClient().play();
-        return getMPDClient().getInfo();
+        return getInfo();
     }
 
     @Path("{authToken}/pause")
@@ -49,7 +53,7 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
         checkToken(token);
 
         getMPDClient().pause();
-        return getMPDClient().getInfo();
+        return getInfo();
     }
 
     @Path("{authToken}/stop")
@@ -60,6 +64,6 @@ public class RESTPlayerInterface extends RESTAbstractInterface{
         checkToken(token);
 
         getMPDClient().stop();
-        return getMPDClient().getInfo();
+        return getInfo();
     }
 }

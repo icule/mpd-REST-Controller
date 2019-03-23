@@ -1,6 +1,7 @@
 package iculesgate.mpd_controller.data;
 
 import iculesgate.mpd_controller.annotation.MyStyle;
+import iculesgate.mpd_controller.annotation.Nullable;
 import org.immutables.value.Value;
 
 /**
@@ -15,5 +16,6 @@ public interface MusicInfoDefinition {
 
     String getArtist();
 
+    @Nullable
     Tag getTag() ;
 }

@@ -1,6 +1,7 @@
 package iculesgate.mpd_controller.REST;
 
 
+import com.google.gson.Gson;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import iculesgate.mpd_controller.mpd.MPDClient;
 import iculesgate.mpd_controller.database.DatabaseManager;
@@ -20,6 +21,9 @@ public class RESTAbstractInterface {
     @Inject
     private MPDClient mpdClient;
 
+    @Inject
+    private Gson gson;
+
 
     String getAuthToken() {
         return configurationManager.getAuthToken();
@@ -31,6 +35,10 @@ public class RESTAbstractInterface {
 
     DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public Gson getGson() {
+        return gson;
     }
 
     void checkToken(final String token) throws AuthenticationException {
