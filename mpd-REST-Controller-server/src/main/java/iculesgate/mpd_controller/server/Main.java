@@ -19,9 +19,16 @@ import java.sql.SQLException;
  */
 public class Main {
     private static class ServerModule extends AbstractModule {
+        private final ConfigurationManager configurationManager;
+
+        private ServerModule(final ConfigurationManager configurationManager) {
+            this.configurationManager = configurationManager;
+        }
+
+
         @Override
         protected void configure() {
-            bind(ConfigurationManager.class);
+            bind(ConfigurationManager.class).toInstance(configurationManager);
             bind(RESTServer.class);
             bind(DatabaseManager.class).in(Singleton.class);
         }
@@ -33,9 +40,9 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException, SQLException {
-        Injector injector = Guice.createInjector(new ServerModule());
-        injector.getInstance(ConfigurationManager.class).loadConfiguration("config.properties");
+        ConfigurationManager configurationManager = ConfigurationManager.loadConfiguration("configuration.json");
 
+        Injector injector = Guice.createInjector(new ServerModule(configurationManager));
         DatabaseManager manager = injector.getInstance(DatabaseManager.class);
         manager.init();
         injector.getInstance(RESTServer.class);

@@ -1,0 +1,6 @@
+{
+  "authToken": "test",
+  "url": "localhost",
+  "port": "6061",
+  "database.file": "./test"
+}

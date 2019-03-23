@@ -24,8 +24,8 @@ public class TargetClient {
         this.gson = gson;
         Client c = ClientBuilder.newClient();
 
-        targetPlayer = c.target("http://" + configurationManager.getCompleteUrl() + "/player/" + configurationManager.getAuthToken());
-        targetTag = c.target("http://" + configurationManager.getCompleteUrl() + "/tag/" + configurationManager.getAuthToken());
+        targetPlayer = c.target("http://" + configurationManager.getUrl() + ":" + configurationManager.getPort() + "/player/" + configurationManager.getAuthToken());
+        targetTag = c.target("http://" + configurationManager.getUrl() + ":" + configurationManager.getPort() + "/tag/" + configurationManager.getAuthToken());
     }
 
     public MpdMusicInformation getCurrentMusicInfo() {

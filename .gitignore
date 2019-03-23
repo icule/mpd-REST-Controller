@@ -6,4 +6,5 @@
 
 .directory
 test.properties
+test.json
 **/target

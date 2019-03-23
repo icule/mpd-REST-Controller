@@ -37,8 +37,8 @@ public class MainFx extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration(getParameters().getRaw().get(0));
+        ConfigurationManager configurationManager = ConfigurationManager.loadConfiguration(getParameters().getRaw().get(0));
+
         Injector injector = Guice.createInjector(new ClientModule(configurationManager, this));
         FXMLLoaderFactory.parametrize(injector);
 
