@@ -21,7 +21,7 @@ public abstract class ConfigurationManagerDefinition {
 
     public abstract String getPort();
 
-    public abstract String getDatabasePath();
+    public abstract DatabaseConfiguration getDatabaseConfiguration();
 
     public static ConfigurationManager loadConfiguration(final String path) throws IOException {
         Gson gson = new Gson();

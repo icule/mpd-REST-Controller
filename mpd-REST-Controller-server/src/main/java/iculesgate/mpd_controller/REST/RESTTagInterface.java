@@ -24,7 +24,7 @@ public class RESTTagInterface extends RESTAbstractInterface{
 
         MPDSong mpdSong = getMPDClient().getMusicInfo();
         Tag tag = Tag.valueOf(body);
-        MusicInfo info = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), tag);
+        MusicInfo info = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), tag, null);
         getDatabaseManager().registerTag(info);
     }
 

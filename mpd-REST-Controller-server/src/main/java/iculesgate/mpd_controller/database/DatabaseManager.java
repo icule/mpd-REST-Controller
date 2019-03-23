@@ -15,15 +15,13 @@ import java.util.List;
  * Created by icule on 13/07/17.
  */
 public class DatabaseManager {
-    ConfigurationManager configurationManager;
-    Connection connection;
-
-    MusicTag musicTag;
+    private final Connection connection;
+    private final MusicTag musicTag;
 
     @Inject
     public DatabaseManager(ConfigurationManager configurationManager) throws ClassNotFoundException, SQLException {
         Class.forName("org.h2.Driver");
-        String jdbcString = "jdbc:h2:" + configurationManager.getDatabasePath();
+        String jdbcString = "jdbc:h2:" + configurationManager.getDatabaseConfiguration().getPath();
         connection = DriverManager.getConnection(jdbcString);
 
         musicTag = new MusicTag(this);
