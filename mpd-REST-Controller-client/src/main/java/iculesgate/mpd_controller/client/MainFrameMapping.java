@@ -1,6 +1,6 @@
 package iculesgate.mpd_controller.client;
 
-import iculesgate.mpd_controller.data.Tag;
+import iculesgate.mpd_controller.data.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -29,7 +29,7 @@ public class MainFrameMapping {
 
     @FXML
     public void infoButtonAction() {
-        musicInformationArea.setText(client.getCurrentMusicInfo());
+        musicInformationArea.setText(fromInfo(client.getCurrentMusicInfo()));
     }
 
     @FXML
@@ -60,5 +60,17 @@ public class MainFrameMapping {
     public void tagButtonAction() {
         client.addTag(tagCombo.getValue());
         infoButtonAction();
+    }
+
+    private String fromInfo(final MpdMusicInformation information) {
+        String res = information.getMusicInfo().getArtist() + " - " + information.getMusicInfo().getTitle();
+
+        res += "\n[" + information.getPlayerStatus() + "]";
+        res += " #" + information.getPlaylistPosition().getPosition() + "/" + information.getPlaylistPosition().getPlaylistSize();
+        res += "  " + PlayerTiming.longToTime(information.getPlayerTiming().getElapsedTime()) + "/" + PlayerTiming.longToTime(information.getPlayerTiming().getTotalDuration());
+
+        res += "\n" + information.getMusicInfo().getFilename();
+
+        return res;
     }
 }
