@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by icule on 13/07/17.
@@ -18,6 +20,8 @@ public class DatabaseManager {
     private final Connection connection;
     private final MusicTag musicTag;
 
+    private final MusicInfoTable musicInfoTable;
+
     @Inject
     public DatabaseManager(ConfigurationManager configurationManager) throws ClassNotFoundException, SQLException {
         Class.forName("org.h2.Driver");
@@ -25,11 +29,12 @@ public class DatabaseManager {
         connection = DriverManager.getConnection(jdbcString);
 
         musicTag = new MusicTag(this);
-
+        musicInfoTable = new MusicInfoTable(this);
     }
 
     public void init() throws SQLException {
         musicTag.init();
+        musicInfoTable.init();
         commit();
     }
 
@@ -37,7 +42,7 @@ public class DatabaseManager {
         connection.commit();
     }
 
-    public PreparedStatement getPreparedStatement(String query) throws SQLException {
+    PreparedStatement getPreparedStatement(String query) throws SQLException {
         return connection.prepareStatement(query);
     }
 
@@ -47,16 +52,22 @@ public class DatabaseManager {
     }
 
     public void registerTag(MusicInfo info) throws SQLException {
-        this.musicTag.registerTag(info);
-        this.commit();
-        System.out.println(getTaggedMusic());
+
+    }
+
+    public void addMusicInfo(final MusicInfo musicInfo) throws DatabaseOperationImpossible {
+        musicInfoTable.addMusicInfo(musicInfo);
+    }
+
+    public MusicInfo getMusicInfo(final UUID id) throws DatabaseOperationImpossible {
+        return musicInfoTable.getMusicInfo(id);
     }
 
     public List<MusicInfo> getTaggedMusic() throws SQLException {
-        return this.musicTag.getMusicInfoList();
+        return Collections.emptyList();
     }
 
     public Tag getTag(String filename) throws SQLException {
-        return musicTag.getTag(filename);
+        return null;
     }
 }

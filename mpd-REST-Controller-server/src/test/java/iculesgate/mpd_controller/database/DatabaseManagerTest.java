@@ -9,12 +9,12 @@ import iculesgate.mpd_controller.configuration.ConfigurationManagerDefinition;
 import iculesgate.mpd_controller.data.MusicInfo;
 import org.junit.Before;
 import org.junit.Test;
-import iculesgate.mpd_controller.data.Tag;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +23,8 @@ import static org.junit.Assert.*;
  */
 public class DatabaseManagerTest {
     private DatabaseManager databaseManager;
+    private MusicInfo musicInfo1;
+    private MusicInfo musicInfo2;
 
     private static class ServerModule extends AbstractModule {
         private final ConfigurationManager configurationManager;
@@ -39,13 +41,16 @@ public class DatabaseManagerTest {
     }
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, SQLException {
         ConfigurationManager configurationManager = ConfigurationManagerDefinition.loadConfiguration("../configuration.json");
 
         Injector injector = Guice.createInjector(new ServerModule(configurationManager));
         databaseManager = injector.getInstance(DatabaseManager.class);
-
+        databaseManager.init();
         deleteDatabase();
+
+        musicInfo1 = new MusicInfo("test1.ogg", "test1", "artist1", null, UUID.randomUUID());
+        musicInfo2 = new MusicInfo("test2.ogg", "test2", "artist2", null, UUID.randomUUID());
     }
 
     private void deleteDatabase() {
@@ -54,34 +59,13 @@ public class DatabaseManagerTest {
     }
 
     @Test
-    public void testInitClose() throws SQLException {
-        databaseManager.init();
-        databaseManager.close();
+    public void testAddMusicData() throws DatabaseOperationImpossible {
+        databaseManager.addMusicInfo(musicInfo1);
+        assertEquals(musicInfo1, databaseManager.getMusicInfo(musicInfo1.getMusicId()));
+
+        assertNull(databaseManager.getMusicInfo(musicInfo2.getMusicId()));
+        databaseManager.addMusicInfo(musicInfo2);
+        assertEquals(musicInfo1, databaseManager.getMusicInfo(musicInfo1.getMusicId()));
+        assertEquals(musicInfo2, databaseManager.getMusicInfo(musicInfo2.getMusicId()));
     }
-
-    @Test
-    public void testInsertTagMusic() throws SQLException {
-        databaseManager.init();
-        MusicInfo info = new MusicInfo("lala.mp3", "l", "l3", Tag.GOOD, null);
-        databaseManager.registerTag(info);
-
-        databaseManager.close();
-    }
-
-    @Test
-    public void testGetMusicList() throws SQLException {
-        databaseManager.init();
-        MusicInfo info = new MusicInfo("lala.mp3", "l", "l3", Tag.TO_REMOVE, null);
-
-        databaseManager.registerTag(info);
-        List<MusicInfo> infoList = databaseManager.getTaggedMusic();
-        assertEquals(1, infoList.size());
-        MusicInfo res = infoList.get(0);
-        assertEquals("lala.mp3", res.getFilename());
-        assertEquals("l", res.getTitle());
-        assertEquals("l3", res.getArtist());
-
-        databaseManager.close();
-    }
-
 }
