@@ -13,6 +13,22 @@ import java.util.List;
  * Created by icule on 13/07/17.
  */
 public class MusicTag {
+    private static final String TABLE_NAME = "Tag";
+    private static final String CREATE_QUERY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
+            "(" +
+            "id uuid not null," +
+            "tag varchar(25) not null" +
+            ");" +
+            "ALTER TABLE " + TABLE_NAME + " " +
+            "ADD FOREIGN KEY (id) REFERENCES " + MusicInfoTable.TABLE_NAME + "(id);";
+
+    private static final String INSERT_VALUE_QUERY = "INSERT INTO " + TABLE_NAME +
+            " VALUES (?, ?);";
+
+    private static final String SELECT_FROM_ID_QUERY = "SELECT * FROM " + TABLE_NAME +
+            " WHERE id = ?;";
+
+
     private DatabaseManager databaseManager;
 
 
@@ -21,62 +37,7 @@ public class MusicTag {
     }
 
     public void init() throws SQLException {
-        String query = "CREATE TABLE IF NOT EXISTS " +
-                "MusicIdExtractor (" +
-                "filename varchar(250) PRIMARY KEY," +
-                "title varchar(250), " +
-                "artist varchar(250)," +
-                "music_tag varchar(25));";
-        System.out.println(query);
-        PreparedStatement statement = databaseManager.getPreparedStatement(query);
+        PreparedStatement statement = databaseManager.getPreparedStatement(CREATE_QUERY);
         statement.execute();
-        System.out.println("Execute create table request");
     }
-
-    public void registerTag(MusicInfo info) throws SQLException {
-        try {
-            String query = "INSERT INTO MusicIdExtractor VALUES (?, ?, ?, ?);";
-            PreparedStatement preparedStatement = databaseManager.getPreparedStatement(query);
-            preparedStatement.setString(1, info.getFilename());
-            preparedStatement.setString(2, info.getTitle());
-            preparedStatement.setString(3, info.getArtist());
-            preparedStatement.executeUpdate();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public List<MusicInfo> getMusicInfoList() throws SQLException {
-        List<MusicInfo> res = new ArrayList<>();
-        String query = "SELECT * FROM MusicIdExtractor;";
-        PreparedStatement statement = databaseManager.getPreparedStatement(query);
-        ResultSet resultSet = statement.executeQuery();
-
-        while(resultSet.next()) {
-            MusicInfo info = new MusicInfo(resultSet.getString(1),
-                                           resultSet.getString(2),
-                                           resultSet.getString(3),
-                                           null);
-            res.add(info);
-        }
-        statement.close();
-
-        return res;
-    }
-
-    public Tag getTag(String filename) throws SQLException {
-        Tag res = null;
-        String query = "SELECT tag from MusicIdExtractor WHERE filename=?";
-        PreparedStatement statement = databaseManager.getPreparedStatement(query);
-        statement.setString(1, filename);
-        ResultSet resultSet = statement.executeQuery();
-
-        if(resultSet.next()) {
-            res = Tag.valueOf(resultSet.getString(1));
-        }
-        resultSet.close();
-        return res;
-    }
-
 }

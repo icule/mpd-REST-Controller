@@ -8,19 +8,22 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 public class MusicInfoTable {
-    private static String TABLE_NAME = "MusicInfo";
-    private static String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
+    static final String TABLE_NAME = "MusicInfo";
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
             "(" +
             "id uuid PRIMARY KEY," +
             "title varchar(250), " +
             "artist varchar(250)," +
             "filename varchar(250)" +
             ");";
-    private static String SELECT_FROM_ID_QUERY = "SELECT * FROM " + TABLE_NAME +
+
+    private static final String SELECT_FROM_ID_QUERY = "SELECT * FROM " + TABLE_NAME +
             " WHERE id = ?;";
-    private static String INSERT_QUERY = "INSERT INTO " + TABLE_NAME +
+
+    private static final String INSERT_QUERY = "INSERT INTO " + TABLE_NAME +
             " VALUES (?, ?, ?, ?)";
-    private static String UPDATE_QUERY = "UPDATE " + TABLE_NAME +
+
+    private static final String UPDATE_QUERY = "UPDATE " + TABLE_NAME +
             " SET title = ?, artist = ?, filename = ? " +
             " WHERE id = ?;";
 
