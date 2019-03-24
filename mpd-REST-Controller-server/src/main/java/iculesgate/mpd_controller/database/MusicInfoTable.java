@@ -70,4 +70,18 @@ public class MusicInfoTable {
             throw new DatabaseOperationImpossible(e, "Impossible to select music info. Error message: %s", e.getMessage());
         }
     }
+
+    void updateMusicData(final MusicInfo musicInfo) throws DatabaseOperationImpossible {
+        try (PreparedStatement statement = databaseManager.getPreparedStatement(UPDATE_QUERY)){
+            statement.setString(1, musicInfo.getTitle());
+            statement.setString(2, musicInfo.getArtist());
+            statement.setString(3, musicInfo.getFilename());
+            statement.setObject(4, musicInfo.getMusicId()); //where clause
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new DatabaseOperationImpossible(e, "Impossible to update music info. Error message: %s", e.getMessage());
+        }
+    }
 }

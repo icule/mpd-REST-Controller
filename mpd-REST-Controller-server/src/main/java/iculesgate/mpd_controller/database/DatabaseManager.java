@@ -63,6 +63,10 @@ public class DatabaseManager {
         return musicInfoTable.getMusicInfo(id);
     }
 
+    public void updateMusicInfo(final MusicInfo musicInfo) throws DatabaseOperationImpossible {
+        musicInfoTable.updateMusicData(musicInfo);
+    }
+
     public List<MusicInfo> getTaggedMusic() throws SQLException {
         return Collections.emptyList();
     }

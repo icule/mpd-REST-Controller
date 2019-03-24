@@ -68,4 +68,16 @@ public class DatabaseManagerTest {
         assertEquals(musicInfo1, databaseManager.getMusicInfo(musicInfo1.getMusicId()));
         assertEquals(musicInfo2, databaseManager.getMusicInfo(musicInfo2.getMusicId()));
     }
+
+    @Test
+    public void testUpdateMusicData() throws DatabaseOperationImpossible {
+        databaseManager.updateMusicInfo(musicInfo1);
+        assertNull(databaseManager.getMusicInfo(musicInfo1.getMusicId()));
+
+        testAddMusicData();
+        MusicInfo updated = new MusicInfo(musicInfo2.getFilename(), musicInfo1.getTitle(), musicInfo1.getArtist(), musicInfo1.getMusicId());
+        databaseManager.updateMusicInfo(updated);
+        assertEquals(updated, databaseManager.getMusicInfo(musicInfo1.getMusicId()));
+        assertEquals(musicInfo2, databaseManager.getMusicInfo(musicInfo2.getMusicId()));
+    }
 }
