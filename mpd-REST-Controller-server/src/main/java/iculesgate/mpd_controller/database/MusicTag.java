@@ -1,6 +1,5 @@
 package iculesgate.mpd_controller.database;
 
-import iculesgate.mpd_controller.data.MusicInfo;
 import iculesgate.mpd_controller.data.Tag;
 
 import java.sql.PreparedStatement;

@@ -4,6 +4,8 @@ import iculesgate.mpd_controller.configuration.ConfigurationManager;
 
 import iculesgate.mpd_controller.data.*;
 import iculesgate.mpd_controller.database.DatabaseManager;
+import iculesgate.mpd_controller.database.DatabaseOperationImpossible;
+import iculesgate.mpd_controller.database.MusicTag;
 import iculesgate.mpd_controller.utils.MusicIdExtractor;
 import org.bff.javampd.player.Player;
 import org.bff.javampd.server.MPD;
@@ -12,7 +14,8 @@ import org.bff.javampd.song.MPDSong;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -58,15 +61,24 @@ public class MPDClient {
         MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getMusicId(mpdSong.getFile()));
         PlayerTiming playerTiming = new PlayerTiming(mpdPlayer.getElapsedTime(), mpdPlayer.getTotalTime());
 
-        return new MpdMusicInformation(status, musicInfo, playlistPosition, playerTiming);
+        return new MpdMusicInformation(status, musicInfo, playlistPosition, playerTiming, getTagList(musicInfo.getMusicId()));
+    }
+
+    private List<Tag> getTagList(final UUID id) {
+        try {
+            TaggedMusicInfo tagged = databaseManager.getTaggedMusicInfo(id);
+            if (tagged == null) {
+                return Collections.emptyList();
+            }
+            return tagged.getTagList();
+        }
+        catch (DatabaseOperationImpossible databaseOperationImpossible) {
+            //right now we do nothing
+            return Collections.emptyList();
+        }
     }
 
     private UUID getMusicId(final String relativePath) {
         return MusicIdExtractor.getLibraryId(configurationManager.getLibraryConfiguration().getRootPath() + "/" + relativePath);
-    }
-
-
-    public MPDSong getMusicInfo() {
-        return this.mpdConnection.getPlayer().getCurrentSong();
     }
 }

@@ -3,6 +3,8 @@ package iculesgate.mpd_controller.data;
 import iculesgate.mpd_controller.annotation.MyStyle;
 import org.immutables.value.Value;
 
+import java.util.List;
+
 @Value.Immutable
 @MyStyle
 public interface MpdMusicInformationDefinition {
@@ -13,4 +15,6 @@ public interface MpdMusicInformationDefinition {
     PlaylistPosition getPlaylistPosition();
 
     PlayerTiming getPlayerTiming();
+
+    List<Tag> getTagList();
 }

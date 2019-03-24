@@ -31,6 +31,7 @@ public class TargetClient {
     public MpdMusicInformation getCurrentMusicInfo() {
         try (Response response = targetPlayer.path("music").request().get();){
             String payload = response.readEntity(String.class);
+            System.out.println(payload);
             return gson.fromJson(payload, MpdMusicInformation.class);
         }
     }
@@ -52,6 +53,6 @@ public class TargetClient {
     }
 
     public void addTag(final Tag tag) {
-        targetTag.path("tag").request().post(Entity.text(tag));
+        targetTag.path("tag").request().post(Entity.text(tag.toString()));
     }
 }

@@ -46,7 +46,7 @@ public class DatabaseManagerTest {
     }
 
     @Before
-    public void setUp() throws IOException, SQLException {
+    public void setUp() throws IOException, SQLException, DatabaseOperationImpossible {
         ConfigurationManager configurationManager = ConfigurationManagerDefinition.loadConfiguration("../configuration.json");
 
         Injector injector = Guice.createInjector(new ServerModule(configurationManager));
