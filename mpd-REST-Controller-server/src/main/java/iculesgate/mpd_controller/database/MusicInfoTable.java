@@ -36,8 +36,9 @@ public class MusicInfoTable {
     }
 
     public void init() throws SQLException {
-        PreparedStatement statement = databaseManager.getPreparedStatement(CREATE_TABLE_QUERY);
-        statement.execute();
+        try (PreparedStatement statement = databaseManager.getPreparedStatement(CREATE_TABLE_QUERY)) {
+            statement.execute();
+        }
     }
 
     void addMusicInfo(final MusicInfo musicInfo) throws DatabaseOperationImpossible {

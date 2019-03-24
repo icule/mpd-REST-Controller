@@ -3,6 +3,7 @@ package iculesgate.mpd_controller.database;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import iculesgate.mpd_controller.data.MusicInfo;
 import iculesgate.mpd_controller.data.Tag;
+import iculesgate.mpd_controller.data.TaggedMusicInfo;
 
 import javax.inject.Inject;
 import java.sql.Connection;
@@ -33,8 +34,8 @@ public class DatabaseManager {
     }
 
     public void init() throws SQLException {
-        musicTag.init();
         musicInfoTable.init();
+        musicTag.init();
         commit();
     }
 
@@ -71,7 +72,16 @@ public class DatabaseManager {
         return Collections.emptyList();
     }
 
-    public Tag getTag(String filename) throws SQLException {
-        return null;
+    public void addTag(final UUID id, final Tag tag) throws DatabaseOperationImpossible {
+        musicTag.addTag(id, tag);
+    }
+
+    public TaggedMusicInfo getTaggedMusicInfo(final UUID id) throws DatabaseOperationImpossible {
+        MusicInfo info = musicInfoTable.getMusicInfo(id);
+        if (info == null) {
+            return null;
+        }
+
+        return new TaggedMusicInfo(info, musicTag.getTagList(id));
     }
 }

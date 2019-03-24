@@ -7,6 +7,9 @@ import com.google.inject.Singleton;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import iculesgate.mpd_controller.configuration.ConfigurationManagerDefinition;
 import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.Tag;
+import iculesgate.mpd_controller.data.TaggedMusicInfo;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +17,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
@@ -79,5 +84,24 @@ public class DatabaseManagerTest {
         databaseManager.updateMusicInfo(updated);
         assertEquals(updated, databaseManager.getMusicInfo(musicInfo1.getMusicId()));
         assertEquals(musicInfo2, databaseManager.getMusicInfo(musicInfo2.getMusicId()));
+    }
+
+    private void assertTag(final MusicInfo musicInfo, final Tag... tag) throws DatabaseOperationImpossible {
+        TaggedMusicInfo tagged = databaseManager.getTaggedMusicInfo(musicInfo.getMusicId());
+        assertEquals(musicInfo, tagged.getMusicInfo());
+        assertThat(tagged.getTagList(), Matchers.containsInAnyOrder(tag));
+    }
+
+    @Test
+    public void testTag() throws DatabaseOperationImpossible {
+        assertNull(databaseManager.getTaggedMusicInfo(musicInfo1.getMusicId()));
+        databaseManager.addMusicInfo(musicInfo1);
+        assertTag(musicInfo1);
+
+        databaseManager.addTag(musicInfo1.getMusicId(), Tag.TO_REMOVE);
+        assertTag(musicInfo1, Tag.TO_REMOVE);
+
+        databaseManager.addTag(musicInfo1.getMusicId(), Tag.GOOD);
+        assertTag(musicInfo1, Tag.GOOD, Tag.TO_REMOVE);
     }
 }
