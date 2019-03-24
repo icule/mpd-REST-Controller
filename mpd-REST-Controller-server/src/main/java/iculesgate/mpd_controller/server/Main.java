@@ -5,6 +5,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
+import iculesgate.mpd_controller.database.DatabaseOperationImpossible;
 import org.slf4j.LoggerFactory;
 import iculesgate.mpd_controller.REST.RESTServer;
 import iculesgate.mpd_controller.database.DatabaseManager;
@@ -39,7 +40,7 @@ public class Main {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException, SQLException, DatabaseOperationImpossible {
         ConfigurationManager configurationManager = ConfigurationManager.loadConfiguration("configuration.json");
 
         Injector injector = Guice.createInjector(new ServerModule(configurationManager));

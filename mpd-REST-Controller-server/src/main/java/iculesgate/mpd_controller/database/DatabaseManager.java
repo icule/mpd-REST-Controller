@@ -33,14 +33,28 @@ public class DatabaseManager {
         musicInfoTable = new MusicInfoTable(this);
     }
 
-    public void init() throws SQLException {
+    public void init() throws SQLException, DatabaseOperationImpossible {
         musicInfoTable.init();
         musicTag.init();
         commit();
     }
 
-    public void commit () throws SQLException {
-        connection.commit();
+    public void commit () throws DatabaseOperationImpossible {
+        try {
+            connection.commit();
+        }
+        catch (SQLException e) {
+            throw new DatabaseOperationImpossible(e, "Impossible to commit. Original error: %s", e.getMessage());
+        }
+    }
+
+    public void rollback() {
+        try {
+            connection.rollback();
+        }
+        catch (Exception e) {
+            //for now we do nothing
+        }
     }
 
     PreparedStatement getPreparedStatement(String query) throws SQLException {
