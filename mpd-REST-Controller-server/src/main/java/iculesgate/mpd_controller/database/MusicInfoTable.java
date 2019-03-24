@@ -60,7 +60,6 @@ public class MusicInfoTable {
                 return new MusicInfo(resultSet.getString(4),
                                      resultSet.getString(2),
                                      resultSet.getString(3),
-                                     null,
                                      (UUID) resultSet.getObject(1));
             }
             else {

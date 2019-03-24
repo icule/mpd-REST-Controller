@@ -40,7 +40,6 @@ public class MusicTag {
             preparedStatement.setString(1, info.getFilename());
             preparedStatement.setString(2, info.getTitle());
             preparedStatement.setString(3, info.getArtist());
-            preparedStatement.setString(4, info.getTag().toString());
             preparedStatement.executeUpdate();
         } catch(Exception e) {
             e.printStackTrace();
@@ -58,7 +57,6 @@ public class MusicTag {
             MusicInfo info = new MusicInfo(resultSet.getString(1),
                                            resultSet.getString(2),
                                            resultSet.getString(3),
-                                           Tag.valueOf(resultSet.getString(4)),
                                            null);
             res.add(info);
         }

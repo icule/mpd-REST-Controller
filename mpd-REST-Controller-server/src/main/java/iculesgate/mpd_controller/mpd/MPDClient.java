@@ -55,19 +55,10 @@ public class MPDClient {
 
         PlaylistPosition playlistPosition = new PlaylistPosition(mpdSong.getPosition(), songCount);
         PlayerStatus status = PlayerStatus.fromPlayerPrefix(mpdPlayer.getStatus().getPrefix());
-        MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getTag(mpdSong), getMusicId(mpdSong.getFile()));
+        MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getMusicId(mpdSong.getFile()));
         PlayerTiming playerTiming = new PlayerTiming(mpdPlayer.getElapsedTime(), mpdPlayer.getTotalTime());
 
         return new MpdMusicInformation(status, musicInfo, playlistPosition, playerTiming);
-    }
-
-    public Tag getTag(final MPDSong mpdSong) {
-        try {
-            return databaseManager.getTag(mpdSong.getFile());
-        }
-        catch (SQLException e) {
-            return null;
-        }
     }
 
     private UUID getMusicId(final String relativePath) {

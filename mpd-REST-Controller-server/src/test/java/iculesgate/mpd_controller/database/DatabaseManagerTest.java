@@ -49,8 +49,8 @@ public class DatabaseManagerTest {
         databaseManager.init();
         deleteDatabase();
 
-        musicInfo1 = new MusicInfo("test1.ogg", "test1", "artist1", null, UUID.randomUUID());
-        musicInfo2 = new MusicInfo("test2.ogg", "test2", "artist2", null, UUID.randomUUID());
+        musicInfo1 = new MusicInfo("test1.ogg", "test1", "artist1", UUID.randomUUID());
+        musicInfo2 = new MusicInfo("test2.ogg", "test2", "artist2", UUID.randomUUID());
     }
 
     private void deleteDatabase() {

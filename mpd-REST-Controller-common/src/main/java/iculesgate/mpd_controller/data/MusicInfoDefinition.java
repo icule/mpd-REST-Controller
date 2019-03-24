@@ -19,8 +19,5 @@ public interface MusicInfoDefinition {
     String getArtist();
 
     @Nullable
-    Tag getTag();
-
-    @Nullable
     UUID getMusicId();
 }
