@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 public class RESTPlayerInterface extends RESTAbstractInterface{
 
     private String getInfo() {
-        return getGson().toJson(getMPDClient().getInfo());
+        return getGson().toJson(getCore().getCurrentMusicInfo());
     }
 
     @Path("{authToken}/music")

@@ -26,11 +26,11 @@ public class Main {
             this.configurationManager = configurationManager;
         }
 
-
         @Override
         protected void configure() {
+            bind(Core.class).in(Singleton.class);
             bind(ConfigurationManager.class).toInstance(configurationManager);
-            bind(RESTServer.class);
+            bind(RESTServer.class).in(Singleton.class);
             bind(DatabaseManager.class).in(Singleton.class);
         }
     }
@@ -44,8 +44,9 @@ public class Main {
         ConfigurationManager configurationManager = ConfigurationManager.loadConfiguration("configuration.json");
 
         Injector injector = Guice.createInjector(new ServerModule(configurationManager));
-        DatabaseManager manager = injector.getInstance(DatabaseManager.class);
-        manager.init();
+        Core core = injector.getInstance(Core.class);
+        core.init();
+
         injector.getInstance(RESTServer.class);
     }
 }

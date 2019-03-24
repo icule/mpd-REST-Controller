@@ -7,15 +7,23 @@ import iculesgate.mpd_controller.database.DatabaseManager;
 import iculesgate.mpd_controller.database.DatabaseOperationImpossible;
 import iculesgate.mpd_controller.mpd.MPDClient;
 
+import javax.inject.Inject;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public class Core {
     private final DatabaseManager databaseManager;
     private final MPDClient mpdClient;
 
-    public Core(final DatabaseManager databaseManager, final MPDClient mpdClient) {
+    @Inject
+    public Core(final DatabaseManager databaseManager,
+                final MPDClient mpdClient) {
         this.databaseManager = databaseManager;
         this.mpdClient = mpdClient;
+    }
+
+    public void init() throws SQLException, DatabaseOperationImpossible {
+        databaseManager.init();
     }
 
     public MpdMusicInformation getCurrentMusicInfo() {

@@ -3,6 +3,7 @@ package iculesgate.mpd_controller.REST;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
+import iculesgate.mpd_controller.server.Core;
 import io.logz.guice.jersey.JerseyModule;
 import io.logz.guice.jersey.JerseyServer;
 import io.logz.guice.jersey.configuration.JerseyConfiguration;
@@ -23,13 +24,16 @@ public class RESTServer {
         private final ConfigurationManager configurationManager;
         private final DatabaseManager databaseManager;
         private final MPDClient mpdClient;
+        private final Core core;
 
         public RestServerModule(final ConfigurationManager configurationManager,
                                 final DatabaseManager databaseManager,
-                                final MPDClient mpdClient) {
+                                final MPDClient mpdClient,
+                                final Core core) {
             this.configurationManager = configurationManager;
             this.databaseManager = databaseManager;
             this.mpdClient = mpdClient;
+            this.core = core;
         }
 
 
@@ -38,6 +42,7 @@ public class RESTServer {
             bind(ConfigurationManager.class).toInstance(configurationManager);
             bind(DatabaseManager.class).toInstance(databaseManager);
             bind(MPDClient.class).toInstance(mpdClient);
+            bind(Core.class).toInstance(core);
         }
     }
 
@@ -46,7 +51,8 @@ public class RESTServer {
     @Inject
     public RESTServer(final ConfigurationManager configurationManager,
                       final MPDClient mpdClient,
-                      final DatabaseManager databaseManager) throws Exception {
+                      final DatabaseManager databaseManager,
+                      final Core core) throws Exception {
         JerseyConfiguration configuration = JerseyConfiguration.builder()
                 .addPackage("iculesgate.mpd_controller")
                 .addPort(6062)
@@ -54,7 +60,7 @@ public class RESTServer {
 
         List<AbstractModule> modules = new ArrayList<>();
         modules.add(new JerseyModule(configuration));
-        modules.add(new RestServerModule(configurationManager, databaseManager, mpdClient));
+        modules.add(new RestServerModule(configurationManager, databaseManager, mpdClient, core));
 
         this.server = Guice.createInjector(modules).getInstance(JerseyServer.class);
         this.server.start();
