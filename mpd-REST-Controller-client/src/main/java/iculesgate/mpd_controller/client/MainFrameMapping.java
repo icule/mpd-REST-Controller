@@ -72,6 +72,7 @@ public class MainFrameMapping {
         res += "\n" + information.getMusicInfo().getFilename();
         res += "\nMusic id: " + information.getMusicInfo().getMusicId();
         res += "\nTag: " + information.getTagList();
+        res += "\nPlay count: " + information.getMusicStatistic().getPlayCount();
 
         return res;
     }

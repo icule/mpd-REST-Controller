@@ -61,7 +61,12 @@ public class MPDClient {
         MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getMusicId(mpdSong.getFile()));
         PlayerTiming playerTiming = new PlayerTiming(mpdPlayer.getElapsedTime(), mpdPlayer.getTotalTime());
 
-        return new MpdMusicInformation(status, musicInfo, playlistPosition, playerTiming, getTagList(musicInfo.getMusicId()));
+        return new MpdMusicInformation(status,
+                                       musicInfo,
+                                       playlistPosition,
+                                       playerTiming,
+                                       getTagList(musicInfo.getMusicId()),
+                                       getStatistic(musicInfo.getMusicId()));
     }
 
     private List<Tag> getTagList(final UUID id) {
@@ -75,6 +80,15 @@ public class MPDClient {
         catch (DatabaseOperationImpossible databaseOperationImpossible) {
             //right now we do nothing
             return Collections.emptyList();
+        }
+    }
+
+    private MusicStatistic getStatistic(final UUID id) {
+        try {
+            return databaseManager.getMusicStatistic(id);
+        }
+        catch (DatabaseOperationImpossible databaseOperationImpossible) {
+            return new MusicStatistic(0);
         }
     }
 

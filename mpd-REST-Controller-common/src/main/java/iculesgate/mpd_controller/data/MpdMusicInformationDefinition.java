@@ -17,4 +17,6 @@ public interface MpdMusicInformationDefinition {
     PlayerTiming getPlayerTiming();
 
     List<Tag> getTagList();
+
+    MusicStatistic getMusicStatistic();
 }
