@@ -2,6 +2,7 @@ package iculesgate.mpd_controller.database;
 
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.MusicStatistic;
 import iculesgate.mpd_controller.data.Tag;
 import iculesgate.mpd_controller.data.TaggedMusicInfo;
 
@@ -22,6 +23,7 @@ public class DatabaseManager {
     private final MusicTag musicTag;
 
     private final MusicInfoTable musicInfoTable;
+    private final StatisticTable statisticTable;
 
     @Inject
     public DatabaseManager(ConfigurationManager configurationManager) throws ClassNotFoundException, SQLException {
@@ -31,11 +33,13 @@ public class DatabaseManager {
 
         musicTag = new MusicTag(this);
         musicInfoTable = new MusicInfoTable(this);
+        statisticTable = new StatisticTable(this);
     }
 
     public void init() throws SQLException, DatabaseOperationImpossible {
         musicInfoTable.init();
         musicTag.init();
+        statisticTable.init();
         commit();
     }
 
@@ -82,10 +86,6 @@ public class DatabaseManager {
         musicInfoTable.updateMusicData(musicInfo);
     }
 
-    public List<MusicInfo> getTaggedMusic() throws SQLException {
-        return Collections.emptyList();
-    }
-
     public void addTag(final UUID id, final Tag tag) throws DatabaseOperationImpossible {
         musicTag.addTag(id, tag);
     }
@@ -97,5 +97,13 @@ public class DatabaseManager {
         }
 
         return new TaggedMusicInfo(info, musicTag.getTagList(id));
+    }
+
+    public MusicStatistic getMusicStatistic(final UUID id) throws DatabaseOperationImpossible {
+        return statisticTable.getPlayCount(id);
+    }
+
+    public void incrementPlayCount(final UUID id) throws DatabaseOperationImpossible {
+        statisticTable.incrementPlayCount(id);
     }
 }

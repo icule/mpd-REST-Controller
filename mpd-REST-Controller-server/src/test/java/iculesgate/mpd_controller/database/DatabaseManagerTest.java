@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import iculesgate.mpd_controller.configuration.ConfigurationManager;
 import iculesgate.mpd_controller.configuration.ConfigurationManagerDefinition;
 import iculesgate.mpd_controller.data.MusicInfo;
+import iculesgate.mpd_controller.data.MusicStatistic;
 import iculesgate.mpd_controller.data.Tag;
 import iculesgate.mpd_controller.data.TaggedMusicInfo;
 import org.hamcrest.Matchers;
@@ -103,5 +104,19 @@ public class DatabaseManagerTest {
 
         databaseManager.addTag(musicInfo1.getMusicId(), Tag.GOOD);
         assertTag(musicInfo1, Tag.GOOD, Tag.TO_REMOVE);
+    }
+
+    @Test
+    public void testIncrement() throws DatabaseOperationImpossible {
+        assertEquals(new MusicStatistic(0), databaseManager.getMusicStatistic(musicInfo1.getMusicId()));
+
+        databaseManager.addMusicInfo(musicInfo1);
+        assertEquals(new MusicStatistic(0), databaseManager.getMusicStatistic(musicInfo1.getMusicId()));
+
+        databaseManager.incrementPlayCount(musicInfo1.getMusicId());
+        assertEquals(new MusicStatistic(1), databaseManager.getMusicStatistic(musicInfo1.getMusicId()));
+
+        databaseManager.incrementPlayCount(musicInfo1.getMusicId());
+        assertEquals(new MusicStatistic(2), databaseManager.getMusicStatistic(musicInfo1.getMusicId()));
     }
 }
