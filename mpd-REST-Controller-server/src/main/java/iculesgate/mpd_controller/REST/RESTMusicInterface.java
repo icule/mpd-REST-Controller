@@ -5,14 +5,18 @@ import iculesgate.mpd_controller.database.DatabaseOperationImpossible;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
+@Path("music")
 public class RESTMusicInterface extends RESTAbstractInterface{
 
-    @Path("{authToken}/music/statistic")
-    @POST
+    @Path("{authToken}/statistic")
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public void postTag(@PathParam("authToken") String token) throws AuthenticationException, DatabaseOperationImpossible {
+    public String postTag(@PathParam("authToken") String token) throws AuthenticationException, DatabaseOperationImpossible {
         checkToken(token);
 
+        List<TaggedMusicInfo> res = getDatabaseManager().getAllMusic();
+        return getGson().toJson(res);
     }
 }

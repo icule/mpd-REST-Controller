@@ -5,6 +5,8 @@ import iculesgate.mpd_controller.data.MusicInfo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MusicInfoTable {
@@ -26,6 +28,8 @@ public class MusicInfoTable {
     private static final String UPDATE_QUERY = "UPDATE " + TABLE_NAME +
             " SET title = ?, artist = ?, filename = ? " +
             " WHERE id = ?;";
+
+    private static final String SELECT_ALL_ID_QUERY = "SELECT id FROM " + TABLE_NAME + " Where 1;";
 
 
     private DatabaseManager databaseManager;
@@ -86,6 +90,21 @@ public class MusicInfoTable {
         }
         catch (SQLException e) {
             throw new DatabaseOperationImpossible(e, "Impossible to update music info. Error message: %s", e.getMessage());
+        }
+    }
+
+    List<UUID> getAllKnownId() throws DatabaseOperationImpossible {
+        try (PreparedStatement preparedStatement = databaseManager.getPreparedStatement(SELECT_ALL_ID_QUERY)) {
+            List<UUID> res = new ArrayList<>();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                res.add((UUID) resultSet.getObject(1));
+            }
+            return res;
+        }
+        catch (SQLException e) {
+            throw new DatabaseOperationImpossible(e, "Impossible to get the list of all id. Original error: %s", e.getMessage());
         }
     }
 }
