@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
 import javax.inject.Inject;
+import java.io.IOException;
 
 public class MainFrameMapping {
     @FXML
@@ -60,6 +61,11 @@ public class MainFrameMapping {
     public void tagButtonAction() {
         client.addTag(tagCombo.getValue());
         infoButtonAction();
+    }
+
+    @FXML
+    public void displayStatistic() throws IOException {
+        new StatisticFrame();
     }
 
     private String fromInfo(final MpdMusicInformation information) {
