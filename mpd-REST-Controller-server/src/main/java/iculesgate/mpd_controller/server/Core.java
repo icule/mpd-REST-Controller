@@ -14,16 +14,21 @@ import java.util.UUID;
 public class Core {
     private final DatabaseManager databaseManager;
     private final MPDClient mpdClient;
+    private final PlayerStatistic playerStatistic;
 
     @Inject
     public Core(final DatabaseManager databaseManager,
-                final MPDClient mpdClient) {
+                final MPDClient mpdClient,
+                final PlayerStatistic playerStatistic) {
         this.databaseManager = databaseManager;
         this.mpdClient = mpdClient;
+        this.playerStatistic = playerStatistic;
     }
 
     public void init() throws SQLException, DatabaseOperationImpossible {
         databaseManager.init();
+
+        playerStatistic.startMonitoring();
     }
 
     public MpdMusicInformation getCurrentMusicInfo() {
