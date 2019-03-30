@@ -11,4 +11,6 @@ public interface TaggedMusicInfoDefinition {
     MusicInfo getMusicInfo();
 
     List<Tag> getTagList();
+
+    MusicStatistic getMusicStatistic();
 }

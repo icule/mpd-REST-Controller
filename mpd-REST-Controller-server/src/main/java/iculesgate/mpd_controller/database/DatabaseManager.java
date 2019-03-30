@@ -96,7 +96,7 @@ public class DatabaseManager {
             return null;
         }
 
-        return new TaggedMusicInfo(info, musicTag.getTagList(id));
+        return new TaggedMusicInfo(info, musicTag.getTagList(id), statisticTable.getPlayCount(id));
     }
 
     public MusicStatistic getMusicStatistic(final UUID id) throws DatabaseOperationImpossible {
