@@ -12,7 +12,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,13 +65,8 @@ public class DatabaseManager {
         return connection.prepareStatement(query);
     }
 
-
     public void close() throws SQLException {
         connection.close();
-    }
-
-    public void registerTag(MusicInfo info) throws SQLException {
-
     }
 
     public void addMusicInfo(final MusicInfo musicInfo) throws DatabaseOperationImpossible {
@@ -106,6 +100,7 @@ public class DatabaseManager {
 
     public void incrementPlayCount(final UUID id) throws DatabaseOperationImpossible {
         statisticTable.incrementPlayCount(id);
+        commit();
     }
 
     public List<TaggedMusicInfo> getAllMusic() throws DatabaseOperationImpossible {
