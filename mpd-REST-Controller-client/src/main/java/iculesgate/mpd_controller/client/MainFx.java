@@ -48,6 +48,7 @@ public class MainFx extends Application {
         BorderPane borderPane = loader.load();
 
         primaryStage.setScene(new Scene(borderPane));
+        primaryStage.setTitle("Mpd Controller");
 
         primaryStage.show();
     }

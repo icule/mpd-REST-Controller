@@ -9,11 +9,12 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iculesgate.mpd_controller.client.StatisticViewMapping">
    <center>
-      <TableView fx:id="statisticView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="statisticView" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
-          <TableColumn fx:id="artistColumn" prefWidth="75.0" text="Artist" />
-            <TableColumn fx:id="playCountColumn" prefWidth="75.0" text="PlayCount" />
+          <TableColumn fx:id="titleColumn" prefWidth="150.0" text="Title" />
+          <TableColumn fx:id="artistColumn" prefWidth="212.0" text="Artist" />
+            <TableColumn fx:id="playCountColumn" prefWidth="50.0" text="Play Count" />
+            <TableColumn fx:id="playtimeColumn" prefWidth="88.0" text="Playtime" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -31,6 +32,12 @@
                </padding>
             </Label>
             <Label fx:id="totalPlaycountLabel" />
+            <Label text="Total Playtime: ">
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </Label>
+            <Label fx:id="totalPlaytimeLabel" />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

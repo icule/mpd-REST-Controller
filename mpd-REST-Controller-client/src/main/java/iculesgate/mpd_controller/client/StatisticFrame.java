@@ -14,6 +14,7 @@ public class StatisticFrame {
 
         BorderPane borderPane = loader.load();
         Stage stage = new Stage();
+        stage.setTitle("Statistic");
         stage.setScene(new Scene(borderPane));
 
         stage.show();

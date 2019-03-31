@@ -25,10 +25,16 @@ public class StatisticViewMapping {
     private TableColumn<TaggedMusicInfo, String> playCountColumn;
 
     @FXML
+    private TableColumn<TaggedMusicInfo, String> playtimeColumn;
+
+    @FXML
     private Label musicCountLabel;
 
     @FXML
     private Label totalPlaycountLabel;
+
+    @FXML
+    private Label totalPlaytimeLabel;
 
     private TargetClient targetClient;
 
@@ -42,6 +48,7 @@ public class StatisticViewMapping {
         List<TaggedMusicInfo> toDisplay = targetClient.getAllMusic();
         musicCountLabel.setText("" + toDisplay.size());
         totalPlaycountLabel.setText("" + toDisplay.stream().mapToInt(o -> o.getMusicStatistic().getPlayCount()).sum());
+        totalPlaytimeLabel.setText(formatDuration(toDisplay.stream().mapToLong(this::getPlaytime).sum()));
 
         statisticView.setItems(FXCollections.observableList(toDisplay));
         titleColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(getIfNotNull(cellData,
@@ -49,6 +56,7 @@ public class StatisticViewMapping {
 
         artistColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(getArtist(cellData)));
         playCountColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("" + cellData.getValue().getMusicStatistic().getPlayCount()));
+        playtimeColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(formatDuration(getPlaytime(cellData.getValue()))));
     }
 
     private String getArtist(final TableColumn.CellDataFeatures<TaggedMusicInfo, String> cellData) {
@@ -71,5 +79,25 @@ public class StatisticViewMapping {
         else {
             return supplier.get();
         }
+    }
+
+    private long getPlaytime(final TaggedMusicInfo info) {
+        return info.getMusicStatistic().getPlayCount() * info.getMusicInfo().getDuration();
+    }
+
+    private String formatDuration(long duration) {
+        StringBuilder builder = new StringBuilder();
+        if (duration >= 3600) {
+            builder.append(String.format("%02d:", duration / 3600));
+            duration = duration % 3600;
+        }
+        if (duration >= 60) {
+            builder.append(String.format("%02d:", duration / 60));
+            duration = duration % 60;
+        }
+        builder.append(String.format("%02d", duration));
+
+
+        return builder.toString();
     }
 }
