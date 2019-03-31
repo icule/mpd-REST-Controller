@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import iculesgate.mpd_controller.data.TaggedMusicInfo;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -24,6 +24,12 @@ public class StatisticViewMapping {
     @FXML
     private TableColumn<TaggedMusicInfo, String> playCountColumn;
 
+    @FXML
+    private Label musicCountLabel;
+
+    @FXML
+    private Label totalPlaycountLabel;
+
     private TargetClient targetClient;
 
     @Inject
@@ -34,6 +40,9 @@ public class StatisticViewMapping {
     @FXML
     private void initialize() {
         List<TaggedMusicInfo> toDisplay = targetClient.getAllMusic();
+        musicCountLabel.setText("" + toDisplay.size());
+        totalPlaycountLabel.setText("" + toDisplay.stream().mapToInt(o -> o.getMusicStatistic().getPlayCount()).sum());
+
         statisticView.setItems(FXCollections.observableList(toDisplay));
         titleColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(getIfNotNull(cellData,
                                                                                            () -> cellData.getValue().getMusicInfo().getTitle())));

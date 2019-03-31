@@ -15,15 +15,16 @@ public class MusicInfoTable {
             "(" +
             "id uuid PRIMARY KEY," +
             "title varchar(250), " +
-            "artist varchar(250)," +
-            "filename varchar(250)" +
+            "artist varchar(250), " +
+            "filename varchar(250), " +
+            "duration long" +
             ");";
 
     private static final String SELECT_FROM_ID_QUERY = "SELECT * FROM " + TABLE_NAME +
             " WHERE id = ?;";
 
     private static final String INSERT_QUERY = "INSERT INTO " + TABLE_NAME +
-            " VALUES (?, ?, ?, ?)";
+            " VALUES (?, ?, ?, ?, ?)";
 
     private static final String UPDATE_QUERY = "UPDATE " + TABLE_NAME +
             " SET title = ?, artist = ?, filename = ? " +
@@ -51,6 +52,7 @@ public class MusicInfoTable {
             statement.setString(2, musicInfo.getTitle());
             statement.setString(3, musicInfo.getArtist());
             statement.setString(4, musicInfo.getFilename());
+            statement.setLong(5, musicInfo.getDuration());
 
             statement.executeUpdate();
         }
@@ -68,7 +70,8 @@ public class MusicInfoTable {
                 return new MusicInfo(resultSet.getString(4),
                                      resultSet.getString(2),
                                      resultSet.getString(3),
-                                     (UUID) resultSet.getObject(1));
+                                     (UUID) resultSet.getObject(1),
+                                     resultSet.getLong(5));
             }
             else {
                 return null;

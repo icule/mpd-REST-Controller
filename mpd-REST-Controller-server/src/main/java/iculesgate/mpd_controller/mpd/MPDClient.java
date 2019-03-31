@@ -58,7 +58,7 @@ public class MPDClient {
 
         PlaylistPosition playlistPosition = new PlaylistPosition(mpdSong.getPosition(), songCount);
         PlayerStatus status = PlayerStatus.fromPlayerPrefix(mpdPlayer.getStatus().getPrefix());
-        MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getMusicId(mpdSong.getFile()));
+        MusicInfo musicInfo = new MusicInfo(mpdSong.getFile(), mpdSong.getTitle(), mpdSong.getArtistName(), getMusicId(mpdSong.getFile()), mpdPlayer.getTotalTime());
         PlayerTiming playerTiming = new PlayerTiming(mpdPlayer.getElapsedTime(), mpdPlayer.getTotalTime());
 
         return new MpdMusicInformation(status,

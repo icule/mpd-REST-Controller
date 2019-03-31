@@ -20,4 +20,6 @@ public interface MusicInfoDefinition {
 
     @Nullable
     UUID getMusicId();
+
+    long getDuration();
 }

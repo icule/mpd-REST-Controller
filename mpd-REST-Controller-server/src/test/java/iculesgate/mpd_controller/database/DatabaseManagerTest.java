@@ -55,8 +55,8 @@ public class DatabaseManagerTest {
         databaseManager.init();
         deleteDatabase();
 
-        musicInfo1 = new MusicInfo("test1.ogg", "test1", "artist1", UUID.randomUUID());
-        musicInfo2 = new MusicInfo("test2.ogg", "test2", "artist2", UUID.randomUUID());
+        musicInfo1 = new MusicInfo("test1.ogg", "test1", "artist1", UUID.randomUUID(), 100);
+        musicInfo2 = new MusicInfo("test2.ogg", "test2", "artist2", UUID.randomUUID(), 200);
     }
 
     private void deleteDatabase() {
@@ -81,7 +81,7 @@ public class DatabaseManagerTest {
         assertNull(databaseManager.getMusicInfo(musicInfo1.getMusicId()));
 
         testAddMusicData();
-        MusicInfo updated = new MusicInfo(musicInfo2.getFilename(), musicInfo1.getTitle(), musicInfo1.getArtist(), musicInfo1.getMusicId());
+        MusicInfo updated = new MusicInfo(musicInfo2.getFilename(), musicInfo1.getTitle(), musicInfo1.getArtist(), musicInfo1.getMusicId(), musicInfo1.getDuration());
         databaseManager.updateMusicInfo(updated);
         assertEquals(updated, databaseManager.getMusicInfo(musicInfo1.getMusicId()));
         assertEquals(musicInfo2, databaseManager.getMusicInfo(musicInfo2.getMusicId()));
