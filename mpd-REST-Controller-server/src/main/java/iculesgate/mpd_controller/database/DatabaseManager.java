@@ -112,4 +112,14 @@ public class DatabaseManager {
         }
         return res;
     }
+
+    public List<TaggedMusicInfo> getMusicForTag(final Tag tag) throws DatabaseOperationImpossible {
+        List<UUID> taggedIdList = musicTag.getIdForTag(tag);
+        List<TaggedMusicInfo> res = new ArrayList<>();
+
+        for (UUID uuid : taggedIdList) {
+            res.add(getTaggedMusicInfo(uuid));
+        }
+        return res;
+    }
 }

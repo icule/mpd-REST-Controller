@@ -29,6 +29,9 @@ public class MusicTag {
     private static final String SELECT_FROM_ID_QUERY = "SELECT tag FROM " + TABLE_NAME +
             " WHERE id = ?;";
 
+    private static final String SELECT_ID_OF_TAG_QUERY = "SELECT id FROM " + TABLE_NAME +
+            " WHERE tag = ?;";
+
 
     private DatabaseManager databaseManager;
 
@@ -71,5 +74,22 @@ public class MusicTag {
         }
 
         return res.stream().distinct().collect(Collectors.toList());
+    }
+
+    public List<UUID> getIdForTag(final Tag tag) throws DatabaseOperationImpossible {
+        List<UUID> res = new ArrayList<>();
+
+        try (PreparedStatement statement = databaseManager.getPreparedStatement(SELECT_ID_OF_TAG_QUERY)) {
+            statement.setString(1, tag.toString());
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                res.add((UUID) resultSet.getObject(1));
+            }
+        }
+        catch (SQLException e) {
+            throw new DatabaseOperationImpossible(e, "Impossible to retrieve id for tag. Original error: %s", e.getMessage());
+        }
+        return res;
     }
 }

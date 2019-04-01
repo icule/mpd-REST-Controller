@@ -18,9 +18,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -104,6 +103,14 @@ public class DatabaseManagerTest {
 
         databaseManager.addTag(musicInfo1.getMusicId(), Tag.GOOD);
         assertTag(musicInfo1, Tag.GOOD, Tag.TO_REMOVE);
+
+        databaseManager.addMusicInfo(musicInfo2);
+        databaseManager.addTag(musicInfo2.getMusicId(), Tag.TO_REMOVE);
+
+        assertThat(databaseManager.getMusicForTag(Tag.TO_REMOVE).stream().map(o -> o.getMusicInfo().getMusicId()).collect(Collectors.toList()),
+                   Matchers.containsInAnyOrder(musicInfo1.getMusicId(), musicInfo2.getMusicId()));
+        assertThat(databaseManager.getMusicForTag(Tag.GOOD).stream().map(o -> o.getMusicInfo().getMusicId()).collect(Collectors.toList()),
+                   Matchers.containsInAnyOrder(musicInfo1.getMusicId()));
     }
 
     @Test

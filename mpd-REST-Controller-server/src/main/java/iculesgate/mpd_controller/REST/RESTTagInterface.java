@@ -23,4 +23,13 @@ public class RESTTagInterface extends RESTAbstractInterface{
         Tag tag = Tag.valueOf(body);
         getCore().addTagToCurrentMusic(tag);
     }
+
+    @Path("{authToken}/tag/{tagValue}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getTaggedMusic(@PathParam("authToken") final String token,
+                               @PathParam("tagValue") final String tagString) throws DatabaseOperationImpossible {
+        Tag tag = Tag.valueOf(tagString);
+        return getGson().toJson(getDatabaseManager().getMusicForTag(tag));
+    }
 }
