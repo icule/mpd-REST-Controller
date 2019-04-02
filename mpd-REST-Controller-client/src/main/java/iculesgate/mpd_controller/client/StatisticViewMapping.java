@@ -62,7 +62,8 @@ public class StatisticViewMapping {
     private String getArtist(final TableColumn.CellDataFeatures<TaggedMusicInfo, String> cellData) {
         if (cellData.getValue().getMusicInfo() != null) {
             if (cellData.getValue().getMusicInfo().getArtist() != null) {
-                if (cellData.getValue().getMusicInfo().getArtist().contains("中川幸太郎")) {//There is a unicode caracter that make crash javafx here
+                if (cellData.getValue().getMusicInfo().getArtist().contains("中川幸太郎") ||
+                cellData.getValue().getMusicInfo().getArtist().contains("太郎")) {//There is a unicode caracter that make crash javafx here
                     return "";
                 }
                 return cellData.getValue().getMusicInfo().getArtist();
