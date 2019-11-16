@@ -30,7 +30,7 @@ public class RESTServer {
                       final Core core) throws Exception {
         JerseyConfiguration configuration = JerseyConfiguration.builder()
                 .addPackage("iculesgate.mpd_controller")
-                .addPort(6062)
+                .addPort(Integer.parseInt(configurationManager.getPort()))
                 .build();
 
         List<AbstractModule> modules = new ArrayList<>();
